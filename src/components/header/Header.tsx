@@ -14,7 +14,7 @@ export default function Header() {
   const [paginaSelecionada, setPaginaSelecionada] = useState(nomePagina[usePathname()]);
 
   return (
-    <header className="w-full text-white flex justify-between px-4 bg-zinc-900 h-9">
+    <header className="text-white flex justify-between sm:px-4 bg-zinc-900 h-9 overflow-hidden">
       <a
         href="https://www.catarse.me/curacorrosiva"
         target="_blank"
@@ -51,12 +51,12 @@ export default function Header() {
           <p className={`px-1.5 fontMaquina ${paginaSelecionada == 2 ? "font-medium" : "font-small text-sm"}`}>Anúncios</p>
         </Link>
       </div>
-      <div className=" flex justify-between my-1.5">
-        <div className=" flex content-center flex-wrap prevent-select bg-sky-950 rounded mx-3 px-3">
+      <div className=" flex justify-between my-1.5 w-auto">
+        <div className=" flex content-center flex-wrap prevent-select bg-sky-950 rounded mr-3 sm:mx-3 px-3">
           <p className="text-center w-full fontMaquina">Login</p>
         </div>
-        <div className=" flex content-center flex-wrap prevent-select rounded px-0 collapse w-0 sm:visible sm:w-auto">
-          <p className="text-center w-full font-light fontMaquina border rounded px-1.5">Cadastrar</p>
+        <div className="flex content-center flex-wrap prevent-select rounded px-0 collapse w-0 sm:visible sm:w-auto">
+          <p className="text-center font-light fontMaquina border rounded px-0 collapse sm:visible sm:px-1.5 w-0 sm:w-auto">Cadastrar</p>
         </div>
       </div>
     </header>
