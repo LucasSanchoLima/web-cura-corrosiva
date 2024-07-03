@@ -1,18 +1,11 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import BotaoApoiase from "../botoes/Botoes";
 import Link from "next/link";
 
 import { IoMenu } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
-
-const nomePagina: { [key: string]: number } = {
-  "/": 0,
-  "/livro": 1,
-  "/avisos": 2,
-};
 
 export default function HeaderMobile() {
   const [menu, setMenu] = useState(false);
