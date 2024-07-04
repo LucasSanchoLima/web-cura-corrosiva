@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className + " pt-9"}>
+      <body className={inter.className + " pt-9 text-white bg-zinc-950 bg-none"}>
         <Header />
         {children}
       </body>
