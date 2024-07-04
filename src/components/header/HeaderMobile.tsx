@@ -11,7 +11,7 @@ export default function HeaderMobile() {
   const [menu, setMenu] = useState(false);
 
   return (
-    <header className="fixed w-full text-white flex flex-wrap bg-zinc-900 overflow-hidden top-0">
+    <header className="fixed w-full z-10 text-white flex flex-wrap bg-zinc-900 overflow-hidden top-0 drop-shadow-md">
       <div className="flex justify-between h-9 px-4 w-full">
         <div
           className="my-auto"
@@ -54,13 +54,13 @@ export default function HeaderMobile() {
           <p className="text-center">Livro</p>
         </Link>
         <Link
-          href="/avisos"
+          href="/novidades"
           className="bg-zinc-800 w-3/5 py-1 rounded my-2"
           onClick={() => {
             setMenu(false);
           }}
         >
-          <p className="text-center">Avisos</p>
+          <p className="text-center">Novidades</p>
         </Link>
 
         <BotaoApoiase

@@ -15,7 +15,7 @@ export default function HeaderDesktop() {
   const [paginaSelecionada, setPaginaSelecionada] = useState(nomePagina[usePathname()]);
 
   return (
-    <header className="fixed w-full text-white flex justify-between px-4 bg-zinc-900 h-9 overflow-hidden top-0">
+    <header className="fixed w-full z-10 text-white flex justify-between px-4 bg-zinc-900 h-9 overflow-hidden top-0 drop-shadow-md">
       <BotaoApoiase texto="Apoie o Projeto" />
       <div className="items-center flex justify-between">
         <Link
@@ -37,13 +37,13 @@ export default function HeaderDesktop() {
           <p className={`px-1.5 fontMaquina ${paginaSelecionada == 1 ? "font-medium" : "font-small text-sm"}`}>Livro</p>
         </Link>
         <Link
-          href="/avisos"
+          href="/novidades"
           className={`mx-3 ${paginaSelecionada == 2 ? "border-b-2" : ""} border-sky-700`}
           onClick={() => {
             setPaginaSelecionada(2);
           }}
         >
-          <p className={`px-1.5 fontMaquina ${paginaSelecionada == 2 ? "font-medium" : "font-small text-sm"}`}>Anúncios</p>
+          <p className={`px-1.5 fontMaquina ${paginaSelecionada == 2 ? "font-medium" : "font-small text-sm"}`}>Novidades</p>
         </Link>
       </div>
       <div className="flex justify-between my-1.5 w-auto">

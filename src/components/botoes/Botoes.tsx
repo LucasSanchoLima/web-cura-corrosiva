@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 interface BotaoApoiaseProps {
   texto: string;
   mobile?: boolean;
@@ -14,5 +16,16 @@ export default function BotaoApoiase({ texto, mobile = false }: BotaoApoiaseProp
     >
       <p className="text-center w-full font-medium">{texto}</p>
     </a>
+  );
+}
+
+export function BotaoLer() {
+  return (
+    <Link
+      href="/livro"
+      className="w-56 text-center bg-sky-700 rounded m-1 py-1"
+    >
+      Ler
+    </Link>
   );
 }
