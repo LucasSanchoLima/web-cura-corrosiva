@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="h-screen  w-full">
       <div className="w-full  flex flex-col sm:flex-row my-10">
-        <div className=" flex justify-center items-center flex-col w-full sm:w-2/5 my-20 sm:my-auto">
+        <div className=" flex justify-center items-center flex-col w-full sm:w-2/5 mb-20 sm:my-auto">
           <div className="w-56 bg-zinc-700 h-80 m-4 flex justify-center">
             <p className="text-8xl text-center my-auto">?</p>
           </div>
