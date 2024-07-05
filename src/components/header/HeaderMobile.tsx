@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { IoMenu } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
+import { RomanAntique } from "@/fonts/fonts";
 
 export default function HeaderMobile() {
   const [menu, setMenu] = useState(false);
@@ -28,7 +29,7 @@ export default function HeaderMobile() {
           className="my-auto"
           href={"/"}
         >
-          <p className="">Cura Corrosiva</p>
+          <p className={`${RomanAntique.className} text-2xl`}>Cura Corrosiva</p>
         </Link>
         <div className="my-auto ">
           <CiLogin
