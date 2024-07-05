@@ -29,7 +29,7 @@ export default function HeaderMobile() {
           className="my-auto"
           href={"/"}
         >
-          <p className={`${RomanAntique.className} text-2xl`}>Cura Corrosiva</p>
+          <p className={`${RomanAntique.className} text-xl`}>Cura Corrosiva</p>
         </Link>
         <div className="my-auto ">
           <CiLogin
