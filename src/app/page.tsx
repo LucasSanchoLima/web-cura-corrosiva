@@ -5,14 +5,14 @@ import { FontMaquina, MirageFinal, RomanAntique } from "@/fonts/fonts";
 export default function Home() {
   return (
     <main className={`h-screen w-full ${FontMaquina.className}`}>
-      <div className="w-full  flex flex-col sm:flex-row my-10">
-        <div className="text-xl flex justify-center items-center flex-col w-full sm:w-2/5 mb-20 sm:my-auto">
+      <div className="w-full  flex flex-col lg:flex-row my-10">
+        <div className="text-xl flex justify-center items-center flex-col w-full lg:w-2/5 mb-20 lg:my-auto">
           <div className="w-56 bg-zinc-700 h-80 m-4 flex justify-center">
             <p className="text-8xl text-center my-auto">?</p>
           </div>
           <BotaoLer />
         </div>
-        <div className="h-full flex flex-col justify-center mx-5 max-w-3xl items-center w-auto sm:w-3/5">
+        <div className="h-full flex flex-col justify-center max-w-3xl items-center w-auto mx-5 md:mx-auto lg:mx-5 lg:w-3/5">
           <div className="bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className={`p-3 text-justify m-3 text-xl ${RomanAntique.className}`}>
               Olá caro leitor(a), acho que antes de entrarmos nessa aventura devo exclarecer algumas coisas.
@@ -42,8 +42,8 @@ export default function Home() {
       <div className="bg-zinc-900 h-16 flex justify-center">
         <p className="my-auto text-2xl">Projetos</p>
       </div>
-      <div className="flex px-5 justify-center w-full flex-col sm:flex-row">
-        <div className=" max-w-md my-10 mx-auto sm:my-auto sm:mx-24 sm:w-1/2">
+      <div className="flex px-5 justify-center w-full flex-col lg:flex-row">
+        <div className=" max-w-md my-10 mx-auto lg:my-auto lg:mx-24 lg:w-1/2">
           <div className="bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="text-lg text-center">Tudo por Você</p>
             <p className="text-justify p-5">
@@ -53,7 +53,7 @@ export default function Home() {
             <BotaoLer />
           </div>
         </div>
-        <div className="flex flex-col max-w-md mb-10 mx-auto sm:mx-20 sm:my-10 sm:w-1/2">
+        <div className="flex flex-col max-w-md mb-10 mx-auto lg:mx-20 lg:my-10 lg:w-1/2">
           <div className="bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="text-center">Livro 2</p>
             <p className="text-justify p-5 pb-0">
@@ -72,16 +72,16 @@ export default function Home() {
       <div className="bg-zinc-900 h-16 flex justify-center">
         <p className="my-auto text-xl">Processo Criativo</p>
       </div>
-      <div className="max-w-4xl p-5 sm:m-10 sm:mx-auto ">
+      <div className="max-w-4xl p-5 lg:my-10 mx-auto ">
         <div className="bg-zinc-800 rounded drop-shadow-md my-3 py-4">
-          <p className="p-3 text-justify m-3 sm:text-lg">
-            Antes de começar a escrever o livro, escolho a intenção dele. Por exemplo: “Tudo por você” é a frase que melhor expressa a emoção que estou querendo transmitir e é através disso que começo a formar a história. Depois de escolher a sensação
+          <p className="p-3 text-justify m-3 lg:text-lg">
+            Antes de começar a escrever o livro, escolho a intenção dele. Por exemplo: “Tudo por você” é a frase que melhor expressa a emoção que estou querendo tranlgitir e é através disso que começo a formar a história. Depois de escolher a sensação
             começo a dividir o livro em várias partes, ou no caso, arcos. Eles tem que ser estruturados o suficiente para criar uma boa base em que irei escrever, mas flexível o suficiente para eu poder fazer bom uso de novas ideias, que surgem ao longo
             do caminho.
             <br />
             <br />
             Após a definição dos arcos começo a escrita em sí. A quantidade de capítulos e partes são feitas ao longo da escrita. Depois dela, que é a parte mais demorada, passo para a revisão, em que é feito para verificar e mudar as palavras utilizadas
-            no livro, sendo a segunda parte que mais consome tempo. Basicamente a história continua a mesma, mas as palavras são trocadas para fazer com que a história seja mais fluida e crie uma melhor experiência para o leitor. Para finalizar, o livro
+            no livro, sendo a segunda parte que mais consome tempo. Basicamente a história continua a melga, mas as palavras são trocadas para fazer com que a história seja mais fluida e crie uma melhor experiência para o leitor. Para finalizar, o livro
             passa por alguns leitores betas para verificar a clareza na história.
           </p>
         </div>
@@ -90,33 +90,33 @@ export default function Home() {
         <div className="bg-zinc-900 flex justify-center p-4">
           <p className="my-auto text-2xl text-center">Dlulem pimbulbom</p>
         </div>
-        <div className="max-w-4xl p-5 sm:mx-auto ">
+        <div className="max-w-4xl p-5 mx-auto ">
           <div className="bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="p-3 text-justify mx-3 text-lg">
               Omom mue drejobem cho lue bolhe asu pubu, ea chunchor bide po drocimue duru vriumue o nulmusolbe. Depos olvurur omom drejobem vese veimum cho oa femburiu po gumor, sum lue bolhe em soiem duru drepami-nem.
             </p>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between gap-12 mx-5 sm:mx-20 text-justify">
-          <div className=" sm:w-1/3 bg-zinc-800 rounded drop-shadow-md my-3 py-4">
+        <div className="flex flex-col lg:flex-row justify-between lg:gap-12 mx-5 lg:mx-20 text-justify">
+          <div className=" lg:w-1/3 bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="text-center mb-2 text-xl">Morio</p>
             <p className="mx-4 text-lg ">
               Uqueuriu ilvricon depor cor u zilhu imberiu muir pe dudon, sum udolum uvoiburiu ime mo bicomos romdoibe u etru erifilun. U gersu cho unfe o velbupe sapu saibe u imberiu, olbue olbolpe cho moru lovomurie sepigivumeom, sum omdore cho u
               omvolviu moju usdligivupu, luo unborupu.
             </p>
           </div>
-          <div className="sm:w-1/3 bg-zinc-800 rounded drop-shadow-md my-3 py-4">
+          <div className="lg:w-1/3 bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="text-center mb-2 text-xl">Jefe</p>
             <p className="mx-4 text-lg ">Ju gei dlulojupe asu imberiu cho mo dumu lomo alicorie. Onu o ilpodolpolbo pe nicre, olbuo chunchor domeu depo jefu-ne. U chombue o cho vrioi dolmulpe mor as jefe varbe, deros ves curiem giluim.</p>
           </div>
-          <div className="sm:w-1/3 bg-zinc-800 rounded drop-shadow-md my-3 py-4">
+          <div className="lg:w-1/3 bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="text-center mb-2 text-xl">RDF</p>
             <p className="mx-4 text-lg ">
               Lue u lupu dlulojupe duru omo drejobe, udolum bolhe asu celbupo po gumor as mimbosu dredrie, jalbusolbo ves ipoium po asu vusdulhu oquevlamicu duru em jefuperom po rdf, duru cho onom demus bor u mau dredriu ucolbaru lomo ilvricon alicorme.
             </p>
           </div>
         </div>
-        <div className="max-w-4xl p-5 sm:mx-auto ">
+        <div className="max-w-4xl p-5 mx-auto ">
           <div className="bg-zinc-800 rounded drop-shadow-md my-3 py-4">
             <p className="p-3 text-justify mx-3 text-lg">
               O mosdro tes ronoltrur cho lue mea asu osdromu, udolum as uaber, olbue me deme so pomdelitinimur os as alive drejobe der com. O cuno noltrur cho mosdro moru drierimupe u gilunimumue pe drejobe cho ombu os ulpusolbe.
