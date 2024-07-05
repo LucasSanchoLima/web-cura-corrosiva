@@ -24,9 +24,12 @@ export default function HeaderMobile() {
             className={menu ? "stroke-zinc-500" : "stroke-zinc-200"}
           />
         </div>
-        <div className="my-auto">
+        <Link
+          className="my-auto"
+          href={"/"}
+        >
           <p className="">Cura Corrosiva</p>
-        </div>
+        </Link>
         <div className="my-auto ">
           <CiLogin
             size={24}

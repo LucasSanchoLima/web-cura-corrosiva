@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/Header";
+import { MenuContextProvider } from "@/contexts/menuContext";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <GoogleTagManager gtmId="GTM-N22LR9RD" />
       <body className={inter.className + " pt-9 text-white bg-zinc-950 bg-none"}>
-        <Header />
-        {children}
+        <MenuContextProvider>
+          <Header />
+          {children}
+        </MenuContextProvider>
       </body>
     </html>
   );

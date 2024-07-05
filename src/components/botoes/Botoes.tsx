@@ -1,5 +1,7 @@
 "use client";
 
+import { useMenuContext } from "@/contexts/menuContext";
+import { FontMaquina } from "@/fonts/fonts";
 import Link from "next/link";
 
 interface BotaoApoiaseProps {
@@ -20,10 +22,15 @@ export default function BotaoApoiase({ texto, mobile = false }: BotaoApoiaseProp
 }
 
 export function BotaoLer() {
+  const { setPaginaSelecionada } = useMenuContext();
+
   return (
     <Link
       href="/livro"
-      className="w-56 text-center bg-sky-700 rounded m-1 py-1"
+      onClick={() => {
+        setPaginaSelecionada(1);
+      }}
+      className={`w-56 text-center bg-sky-700 rounded my-1 py-1 flex justify-center mx-auto ${FontMaquina.className}`}
     >
       Ler
     </Link>
