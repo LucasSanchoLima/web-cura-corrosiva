@@ -1,0 +1,292 @@
+<html><head><style type="text/css">pre { margin: 1px }
+.fmt0 {  } /* normal */
+.fmt1 {  } /* background */
+.fmt2 { background-color: #8d0b2b; } /* line:error */
+.fmt3 { background-color: #5e4807; } /* line:warning */
+.fmt4 { background-color: #07485e; } /* line:badbox */
+.fmt5 {  } /* line:bookmark */
+.fmt6 {  } /* line:bookmark0 */
+.fmt7 {  } /* line:bookmark1 */
+.fmt8 {  } /* line:bookmark2 */
+.fmt9 {  } /* line:bookmark3 */
+.fmt10 {  } /* line:bookmark4 */
+.fmt11 {  } /* line:bookmark5 */
+.fmt12 {  } /* line:bookmark6 */
+.fmt13 {  } /* line:bookmark7 */
+.fmt14 {  } /* line:bookmark8 */
+.fmt15 {  } /* line:bookmark9 */
+.fmt16 { color: #59a56c; } /* magicComment */
+.fmt17 { font-weight: 8200;color: #a55992; } /* commentTodo */
+.fmt18 { color: #667299; } /* comment */
+.fmt19 { color: #60cdf2; } /* keyword */
+.fmt20 { font-weight: 8200;color: #a960f2; } /* extra-keyword */
+.fmt21 { color: #60f285; } /* math-keyword */
+.fmt22 { border-bottom: 1px solid #184ef2;color: #184ef2; } /* link */
+.fmt23 { font-weight: 8200;color: #184ef2; } /* align-ampersand */
+.fmt24 { color: #85f260; } /* verbatim */
+.fmt25 { color: #6085f2; } /* sweave-block */
+.fmt26 { font-weight: 8200;color: #a960f2; } /* sweave-delimiter */
+.fmt27 { color: #6085f2; } /* pweave-block */
+.fmt28 { font-weight: 8200;color: #a960f2; } /* pweave-delimiter */
+.fmt29 { color: #f2f260; } /* picture */
+.fmt30 { color: #60f285; } /* picture-keyword */
+.fmt31 { font-weight: 8200;background-color: #0b4c8d; } /* braceMatch */
+.fmt32 { font-weight: 8200;color: #f2f218;background-color: #8d0b0b; } /* braceMismatch */
+.fmt33 { color: #f2f218;background-color: #48075e; } /* search */
+.fmt34 { color: #f2a960; } /* numbers */
+.fmt35 { color: #85f218; } /* math-delimiter */
+.fmt36 { color: #b0f218; } /* math-text */
+.fmt37 {  } /* text */
+.fmt38 { color: #f260a9; } /* escapeseq */
+.fmt39 { border-bottom: 1px dashed #f2184e; } /* spellingMistake */
+.fmt40 { border-bottom: 1px dashed #f2f218; } /* wordRepetition */
+.fmt41 { border-bottom: 1px dashed #f2f218; } /* wordRepetitionLongRange */
+.fmt42 { text-decoration: line-through; } /* badWord */
+.fmt43 { border-bottom: 1px dashed #184ef2; } /* grammarMistake */
+.fmt44 { background-color: #4c8d0b; } /* grammarMistakeSpecial1 */
+.fmt45 { background-color: #0b8d4c; } /* grammarMistakeSpecial2 */
+.fmt46 { background-color: #0b8d8d; } /* grammarMistakeSpecial3 */
+.fmt47 { background-color: #0b4c8d; } /* grammarMistakeSpecial4 */
+.fmt48 { background-color: #8d4c0b; } /* latexSyntaxMistake */
+.fmt49 { font-style: italic;color: #0b2b8d; } /* temporaryCodeCompletion */
+.fmt50 { color: #60cdf2; } /* environment */
+.fmt51 { color: #60f260; } /* referencePresent */
+.fmt52 { border-bottom: 1px dashed #60f260;color: #60f260; } /* referenceMissing */
+.fmt53 { border-bottom: 1px dashed #f24e18;color: #f24e18; } /* referenceMultiple */
+.fmt54 { color: #60f260; } /* citationPresent */
+.fmt55 { border-bottom: 1px dashed #60f260;color: #60f260; } /* citationMissing */
+.fmt56 { color: #60f260; } /* packagePresent */
+.fmt57 { border-bottom: 1px dashed #60f260;color: #60f260; } /* packageMissing */
+.fmt58 { font-weight: 8200; } /* structure */
+.fmt59 { background-color: #3c3c42; } /* current */
+.fmt60 { background-color: #071d5e; } /* selection */
+.fmt61 { background-color: #5e0733; } /* replacement */
+.fmt62 { text-decoration: line-through;background-color: #5e1d07; } /* diffDelete */
+.fmt63 { background-color: #075e33; } /* diffAdd */
+.fmt64 { background-color: #5e4807; } /* diffReplace */
+.fmt65 { background-color: #6d0b8d; } /* previewSelection */
+.fmt66 { font-weight: 8200;color: #60a9f2; } /* txs-test */
+.fmt67 { font-weight: 8200; } /* txs-test-summary */
+.fmt68 { color: #85f260; } /* txs-test-pass */
+.fmt69 { color: #f26085; } /* txs-test-fail */
+.fmt70 { color: #f2a960; } /* txs-test-warn */
+.fmt71 { color: #cdf260; } /* txs-test-qdebug */
+.fmt72 { color: #f260a9; } /* dtx:guard */
+.fmt73 { font-weight: 8200;color: #60f285; } /* dtx:macro */
+.fmt74 { color: #85f260; } /* dtx:verbatim */
+.fmt75 { color: #f260a9; } /* dtx:specialchar */
+.fmt76 { font-weight: 8200;color: #60f285; } /* dtx:commands */
+.fmt77 { color: #f26085; } /* lua:keyword */
+.fmt78 { color: #667299; } /* lua:comment */
+.fmt79 { color: #6085f2; } /* asymptote:block */
+.fmt80 { color: #f26085; } /* asymptote:keyword */
+.fmt81 { color: #f2f260; } /* asymptote:type */
+.fmt82 { color: #f2a960; } /* asymptote:numbers */
+.fmt83 { color: #60f260; } /* asymptote:string */
+.fmt84 { color: #667299; } /* asymptote:comment */
+.fmt85 { color: #667299; } /* qtscript:comment */
+.fmt86 { color: #60f260; } /* qtscript:string */
+.fmt87 { color: #f2a960; } /* qtscript:number */
+.fmt88 { color: #f26085; } /* qtscript:keyword */
+.fmt89 { color: #6060f2; } /* qtscript:txs-variable */
+.fmt90 { font-style: italic; } /* qtscript:txs-function */
+.fmt91 { background-color: #8d6d0b; } /* preedit */
+</style></head><body><pre>  </pre>
+<pre>-- Espero que a gente ache um lugar descente para ficar dessa vez -- Falou Alice de forma cansada, sentada no passageiro com um mapa na mão. </pre>
+<pre> </pre>
+<pre>-- Estamos quase chegando na farmácia -- Pontuou Davi enquanto dirigia o carro -- Mais uns dois ou três dias de viagem e finalmente a gente vai poder descansar. </pre>
+<pre> </pre>
+<pre>-- Ainda vamos ter que ficar dormindo no carro por dois dias?! -- Exclamou, amassando o mapa entre as mãos -- Faz quanto tempo que não tomamos banho ou comemos alguma comida descente? </pre>
+<pre> </pre>
+<pre>Davi permaneceu em silêncio, não tirando os olhos da estrada, preocupado com o pouco tempo de luz que ainda os restava. </pre>
+<pre> </pre>
+<pre>-- Vamos Ursinho, você sabe que precisamos disso -- Disse Alice de forma suave -- A farmácia não vai sair do lugar. A gente merece um dia para nós. </pre>
+<pre> </pre>
+<pre>-- Ok Amor, a gente pode acampar por um tempo. Já achou algum lugar aqui perto? </pre>
+<pre> </pre>
+<pre>Alice desamassou o mapa e começou a procurar. </pre>
+<pre> </pre>
+<pre>-- Eu não sei ver onde tem casa nesse mapa, pra mim só tem ruas e estradas. Como que você consegue achar alguma coisa nesse negócio? </pre>
+<pre> </pre>
+<pre>-- Consegue achar alguma estrada de terra? </pre>
+<pre> </pre>
+<pre>-- Sim, mas a gente já passou por diversas estradas de terra. </pre>
+<pre> </pre>
+<pre>-- Procure uma com um rio perto. </pre>
+<pre> </pre>
+<pre>-- Aqui perto tem uma, não vamos demorar muito para chegar. </pre>
+<pre> </pre>
+<pre>Davi seguiu suas direções até chegar em uma estrada de terra, onde começaram a desacelerar o carro. </pre>
+<pre> </pre>
+<pre>Ao longe conseguiram ver uma pequena casa, perto de um riacho. Mas ao invés de saírem, se mantiveram dentro do carro, com ele ainda ligado. </pre>
+<pre> </pre>
+<pre>-- Não consigo ver nenhum Deles daqui -- Falou Davi, olhando calmamente para todas as direções.  </pre>
+<pre> </pre>
+<pre>-- É melhor irmos logo, daqui a pouco vai escurecer -- Observou Alice -- Estamos bem longe de qualquer cidade, nenhum Deles deve ter chegado até aqui. Se tiver algum, está lá dentro -- Terminou a frase abrindo <span class="fmt40">a</span> porta e saindo do carro. </pre>
+<pre> </pre>
+<pre>Alice era uma mulher preta, com uns 1,60 de altura. Sua pele era resistente, mas suave ao toque. Suas mãos, delicadas. Seus olhos eram um castanho claro como o mel.  </pre>
+<pre> </pre>
+<pre>Davi desligou o carro e a acompanhou em direção ao porta-malas. </pre>
+<pre> </pre>
+<pre>Ele era um homem branco, com uns 1,80. Sua pele era fina como um papel. Sua mão direita, coberta de cicatrizes. Seus olhos castanhos, mas tão escuros que eram quase negros. </pre>
+<pre> </pre>
+<pre>Ao abrir o porta-malas ele pegou uma machete que embainhou do lado esquerdo da cintura. Ao lado direito havia uma pistola prata de 9mm com o cabo preto. </pre>
+<pre> </pre>
+<pre>Alice rapidamente pegou o seu machado em mãos e começou a andar em direção a casa. </pre>
+<pre> </pre>
+<pre>-- Calma Amor, acho que é melhor você levar uma arma também. -- Sugeriu, entregando uma pistola em suas mãos e virando para pegar um coldre. </pre>
+<pre> </pre>
+<pre>-- Tem certeza? -- Disse Alice, olhando com certa insegurança para Davi. </pre>
+<pre> </pre>
+<pre>-- Tenho Amor, você já está pronta para voltar a usá-la. </pre>
+<pre> </pre>
+<pre>Alice sorriu, enquanto se reacostumava com o peso da arma. </pre>
+<pre> </pre>
+<pre><span class="fmt18">%--</span><span class="fmt18"> </span><span class="fmt18">É</span><span class="fmt18"> </span><span class="fmt18">serio?</span><span class="fmt18"> </span><span class="fmt18">Não</span><span class="fmt18"> </span><span class="fmt18">acredito</span><span class="fmt18"> </span><span class="fmt18">que</span><span class="fmt18"> </span><span class="fmt18">você</span><span class="fmt18"> </span><span class="fmt18">vai</span><span class="fmt18"> </span><span class="fmt18">finalmente</span><span class="fmt18"> </span><span class="fmt18">deixar</span><span class="fmt18"> </span><span class="fmt18">eu</span><span class="fmt18"> </span><span class="fmt18">usar</span><span class="fmt18"> </span><span class="fmt18">uma</span><span class="fmt18"> </span><span class="fmt18">dessas</span><span class="fmt18"> </span><span class="fmt18">--</span><span class="fmt18"> </span><span class="fmt18">Disse</span><span class="fmt18"> </span><span class="fmt18">Alice</span><span class="fmt18"> </span><span class="fmt18">animada</span><span class="fmt18"> </span><span class="fmt18">enquanto</span><span class="fmt18"> </span><span class="fmt18">se</span><span class="fmt18"> </span><span class="fmt18">reacostumava</span><span class="fmt18"> </span><span class="fmt18">com</span><span class="fmt18"> </span><span class="fmt18">o</span><span class="fmt18"> </span><span class="fmt18">peso</span><span class="fmt18"> </span><span class="fmt18">da</span><span class="fmt18"> </span><span class="fmt18">arma.</span> </pre>
+<pre> </pre>
+<pre>-- Mas lembre-se que não sabemos se aqui é seguro, então só use se for realmente necessário. -- A avisou, prendendo o coldre na cintura dela. </pre>
+<pre> </pre>
+<pre>Ao terminar de colocá-lo, Davi recebeu um beijo de Alice. -- Muito obrigada Ursinho, vou tomar cuidado ao usá-la. </pre>
+<pre> </pre>
+<pre>Os dois foram andando em direção a cabana. Era um lugar silencioso, apenas se podia escutar um fraco rio e seus passos na terra batida. </pre>
+<pre> </pre>
+<pre>Quando estavam finalmente chegando, escutaram um barulho vindo de dentro. Era uma voz, parecia dizer algo --  </pre>
+<pre>{<span class="fmt19"><span class="fmt48">\tagarela</span></span> <span class="fmt39">Cenbu</span> uxi, <span class="fmt39">cea</span> bo <span class="fmt39">urrulvur</span> e <span class="fmt39">eabre</span> <span class="fmt39">trume</span>.}. </pre>
+<pre><span class="fmt18">%Volta</span><span class="fmt18"> </span><span class="fmt18">aqui,</span><span class="fmt18"> </span><span class="fmt18">vou</span><span class="fmt18"> </span><span class="fmt18">te</span><span class="fmt18"> </span><span class="fmt18">arrancar</span><span class="fmt18"> </span><span class="fmt18">o</span><span class="fmt18"> </span><span class="fmt18">outro</span><span class="fmt18"> </span><span class="fmt18">braço.</span> </pre>
+<pre> </pre>
+<pre><span class="fmt18">%Quando</span><span class="fmt18"> </span><span class="fmt18">estavam</span><span class="fmt18"> </span><span class="fmt18">finalmente</span><span class="fmt18"> </span><span class="fmt18">chegando,</span><span class="fmt18"> </span><span class="fmt18">escutaram</span><span class="fmt18"> </span><span class="fmt18">um</span><span class="fmt18"> </span><span class="fmt18">barulho</span><span class="fmt18"> </span><span class="fmt18">vindo</span><span class="fmt18"> </span><span class="fmt18">de</span><span class="fmt18"> </span><span class="fmt18">dentro.</span><span class="fmt18"> </span><span class="fmt18">Era</span><span class="fmt18"> </span><span class="fmt18">uma</span><span class="fmt18"> </span><span class="fmt18">voz,</span><span class="fmt18"> </span><span class="fmt18">parecia</span><span class="fmt18"> </span><span class="fmt18">dizer</span><span class="fmt18"> </span><span class="fmt18">algo</span><span class="fmt18"> </span><span class="fmt18">--</span><span class="fmt18"> </span><span class="fmt19"><span class="fmt18">\textit</span></span><span class="fmt18">{ualpu</span><span class="fmt18"> </span><span class="fmt18">bo</span><span class="fmt18"> </span><span class="fmt18">ujulvi</span><span class="fmt18"> </span><span class="fmt18">e</span><span class="fmt18"> </span><span class="fmt18">eibre</span><span class="fmt18"> </span><span class="fmt18">trume}</span><span class="fmt18"> </span><span class="fmt18">--</span><span class="fmt18"> </span><span class="fmt18">Davi</span><span class="fmt18"> </span><span class="fmt18">deu</span><span class="fmt18"> </span><span class="fmt18">dois</span><span class="fmt18"> </span><span class="fmt18">passos</span><span class="fmt18"> </span><span class="fmt18">para</span><span class="fmt18"> </span><span class="fmt18">longe</span><span class="fmt18"> </span><span class="fmt18">de</span><span class="fmt18"> </span><span class="fmt18">Alice</span><span class="fmt18"> </span><span class="fmt18">e</span><span class="fmt18"> </span><span class="fmt18">gritou</span><span class="fmt18"> </span><span class="fmt18">--</span><span class="fmt18"> </span><span class="fmt18">Ei!</span><span class="fmt18"> </span><span class="fmt18">--</span><span class="fmt18"> </span><span class="fmt18">E</span><span class="fmt18"> </span><span class="fmt18">um</span><span class="fmt18"> </span><span class="fmt18">estrondo</span><span class="fmt18"> </span><span class="fmt18">veio</span><span class="fmt18"> </span><span class="fmt18">da</span><span class="fmt18"> </span><span class="fmt18">porta</span><span class="fmt18"> </span><span class="fmt18">da</span><span class="fmt18"> </span><span class="fmt18">frente.</span> </pre>
+<pre> </pre>
+<pre>Os dois esperaram apenas um instante, preenchido por um completo silêncio que foi quebrado por um sussurro de Davi -- Parece que tem apenas um Tagarela aqui -- Ele deu dois passos para longe de Alice e gritou -- Ei! -- E um estrondo veio da porta <span class="fmt40">da</span> frente. </pre>
+<pre> </pre>
+<pre>Os dois ficaram preparados para quando o Tagarela saísse de dentro da casa. </pre>
+<pre> </pre>
+<pre>Mais um estrondo veio da porta e finalmente ela caiu. De dentro da casa saiu uma criatura quase humana, coberto em uma espessa gosma negra que parecia fluir pelo corpo da criatura de cima a baixo. Em seu rosto não haviam olhos nem ouvidos, apenas uma grande boca cheia de dentes afiados que se estendiam de orelha a <span class="fmt40">orelha</span>. </pre>
+<pre> </pre>
+<pre>A criatura correu em disparada <span class="fmt40">em</span> direção ao Davi, se contorcendo, quase como se fosse cair. Davi com a machete na mão se preparou para dar um golpe, quando a criatura é golpeada no peito com o machado de Alice, fazendo o Tagarela cambalear e cair no chão. </pre>
+<pre> </pre>
+<pre>Antes da criatura conseguir levantar, Davi a acerta com <span class="fmt40">a</span> machete na cabeça, cravando-a em seu corpo. Agora a gosma não fluía mais, começava a escorrer, assim como uma cera escorre de uma vela acessa. </pre>
+<pre> </pre>
+<pre>Davi retirou a machete do Tagarela e ao olhar para o lado, viu Alice com a mão para cima esperando ele bater, enquanto dizia -- Grande trabalho em equipe! </pre>
+<pre> </pre>
+<pre>--É, somos uma grande equipe -- Falava enquanto batia junto a mão dela. </pre>
+<pre> </pre>
+<pre>Davi começou a limpar <span class="fmt40">a</span> machete e disse -- Parece que não precisamos nos preocupar. Com apenas um Tagarela, não deve ter mais nenhum Deles aqui por perto. </pre>
+<pre> </pre>
+<pre>Agora que finalmente pararam, viram o que deviria ser uma pequena casa para passar os fim de semana depois <span class="fmt40">de</span> um longo dia de trabalho. Mas agora só restava uma cabana abandonada, que o tempo já desgastara.  </pre>
+<pre> </pre>
+<pre>A parede estava descascando, as janelas quase caindo, algumas telhas estavam no chão. E mesmo assim Alice parecia estar animada com poder finalmente dormir em um lugar diferente do pequeno carro que sempre os acompanhava.  </pre>
+<pre> </pre>
+<pre>Ela entrou dentro da casa e já começou a olhar cada canto do lugar -- Tem água! </pre>
+<pre> </pre>
+<pre>-- Normalmente essas pequenas casas perto do rio são alimentadas por nascentes, então não precisamos nos preocupar com a água estar poluída. -- Informou Davi. -- Mas ainda é melhor fervermos a água por conta das bactérias, ok? </pre>
+<pre> </pre>
+<pre>-- Claro, <span class="fmt40">claro</span>. Vou começar a limpar o lugar para a gente poder ficar um pouco. </pre>
+<pre> </pre>
+<pre>-- Lembre-se que não podemos ficar muito tempo, seus comprimidos já estão quase acabando. Temos só mais 15 deles. </pre>
+<pre> </pre>
+<pre>-- Pelo menos podemos aproveitar aqui para fazer um pouco do seu. Falando nisso, já tomou? -- Alice foi até sua mochila e tirou um pequeno vidro transparente cheio de um líquido vermelho e um <span class="fmt41">pequeno</span> copo medidor. Colocou um pouco do liquido nele e deu na mão de Davi. </pre>
+<pre><span class="fmt18">%--</span><span class="fmt18"> </span><span class="fmt18">Assim</span><span class="fmt18"> </span><span class="fmt18">que</span><span class="fmt18"> </span><span class="fmt18">tiver</span><span class="fmt18"> </span><span class="fmt18">tudo</span><span class="fmt18"> </span><span class="fmt18">limpo</span><span class="fmt18"> </span><span class="fmt18">vou</span><span class="fmt18"> </span><span class="fmt18">começar</span><span class="fmt18"> </span><span class="fmt18">a</span><span class="fmt18"> </span><span class="fmt18">fazer</span><span class="fmt18"> </span><span class="fmt18">mais.</span> </pre>
+<pre> </pre>
+<pre>-- Faz um bom tempo que não me machuco, não acho que vou precisar de tomar mais. </pre>
+<pre> </pre>
+<pre>-- É melhor termos certeza Ursinho, não vai fazer mal tomar esse. </pre>
+<pre> </pre>
+<pre>Davi olhou para o remédio em sua mão, por algum motivo tomar aquilo sempre o incomodou, mas ao olhar para Alice, viu ela com preocupação, esperando que ele tomasse o remédio para não precisar se preocupar com sua saúde. </pre>
+<pre> </pre>
+<pre>Ele tomou. Aquele líquido gelado descia pela garganta deixando um amargo gosto na boca. -- Espero que algum dia nunca mais tenha que tomar isso. </pre>
+<pre> </pre>
+<pre>Alice lhe deu um beijo e disse. -- Algum dia Amor, algum dia... </pre>
+<pre> </pre>
+<pre>-- Acho melhor começarmos a organizar as coisas. -- Disse Davi, indo em direção ao corpo da criatura. Alice foi em <span class="fmt41">direção</span> a casa, enquanto começava a fazer um coque, do mesmo jeito que ela sempre fazia quando ia começar a limpar o local que estavam. </pre>
+<pre> </pre>
+<pre>Davi pegou um pano velho que estava no varal ao lado da casa e usou para agarrar o Tagarela que estava no chão. O arrastou para longe da casa, na direção oposta a do rio, percebendo uma pequena cerca perto do local que estava se afastando. </pre>
+<pre> </pre>
+<pre>Continuou a arrastá-lo até chegar em uma pequena clareira. Ali não conseguia mais escutar o rio.  </pre>
+<pre> </pre>
+<pre>De dentro da mochila retirou uma garrafa de álcool, que usou para incendiar o corpo da criatura. Davi já havia feito isso incontáveis vezes, sabia como fazer tudo corretamente para não ocorrer nenhum acidente. </pre>
+<pre> </pre>
+<pre>Após pouco tempo o corpo inteiro estava em chamas, que produzia uma fumaça negra como a noite. </pre>
+<pre> </pre>
+<pre>Voltou para casa e foi dar uma olhada na cerca que tinha visto.  </pre>
+<pre> </pre>
+<pre>Lá deveria haver uma pequena horta, mas parecia ter sido violada pela natureza a sua volta. Existiam muitas plantas diferentes uma sobre as outras e Davi não sabia dizer qual tinha sido plantada e qual não. Ele apenas acreditava nisso por conta delas não seguirem nenhum padrão, apenas estarem jogadas, como se tivessem nascido onde conseguiam crescer. </pre>
+<pre> </pre>
+<pre>-- Tivemos sorte. -- Disse Alice encostada na cerca da horta, observando Davi. -- Vamos ter ótimas refeições durante os próximos dias. </pre>
+<pre> </pre>
+<pre>-- Da pra salvar muita coisa daí? -- Perguntou Davi, contemplando a imagem de sua amada. </pre>
+<pre> </pre>
+<pre>-- Claro que sim, você não está vendo tudo isso que está plantado?  </pre>
+<pre> </pre>
+<pre>Davi permaneceu em silêncio, arrependido de ter feito a pergunta. </pre>
+<pre> </pre>
+<pre>-- A gente não tem só comida, também tem algumas que servem como medicamento. Tem para gripe, dor no estômago, dor muscular, até pra cólica tem.  </pre>
+<pre> </pre>
+<pre>-- Que bom Amor, se precisar de ajuda é só me avisar. </pre>
+<pre> </pre>
+<pre>-- Na verdade eu preciso sim. Achei um gerador do lado da casa, já é incrível poder tomar um banho, agora, quente? Seria um sonho realizado. </pre>
+<pre> </pre>
+<pre>-- Vou dar uma olhada. </pre>
+<pre> </pre>
+<pre>Davi foi indo em direção ao lado da casa e Alice foi indo junto. Ao chegar colocou sua mochila no chão e começou a examinar o gerador de forma superficial, apenas para ter certeza que não causaria nenhuma grande explosão. </pre>
+<pre> </pre>
+<pre>Conseguiu observar alguns desgastes pelo tempo, mas não parecia que iria causar algum acidente. O único problema é que não havia sobrado muita gasolina, aparentava ter apenas o suficiente para um banho quente. </pre>
+<pre> </pre>
+<pre>Davi olhou para sua amada e disse -- Acho melhor você já ir indo para o chuveiro, não vai durar muito tempo. </pre>
+<pre> </pre>
+<pre>-- Então vou estar te esperando de baixo do chuveiro Ursinho -- Alice foi andando para dentro da casa enquanto tirava a sua blusa. </pre>
+<pre> </pre>
+<pre>Cada vez que ele puxava a corda para dar partida, ouvia um forte barulho vindo do motor, não parecia ser nada, mas Davi temia causar uma explosão ao lado da casa que eles iriam dormir. Então depois de iniciar o gerador, ele continuou o observando por um tempo. </pre>
+<pre> </pre>
+<pre>-- Ursinho? A água não vai ficar quente para sempre. </pre>
+<pre> </pre>
+<pre>Quando finalmente aceitou que o gerador não daria problema... </pre>
+<pre> </pre>
+<pre>-- <span class="fmt39">Haa</span>! -- Gritou Davi. Uma criatura cravou os dentes em seu ombro direito. </pre>
+<pre> </pre>
+<pre>Por instinto, Davi tentou correr, mas  sentia seu ombro direito sendo arrancado pela mandíbula, seu antebraço sendo esmagado pelas mãos da criatura, como se seus ossos estivessem sendo partido diversas vezes. </pre>
+<pre> </pre>
+<pre>Tentou alcançar a arma que estava em seu coldre... </pre>
+<pre> </pre>
+<pre>Bang, <span class="fmt40">Bang</span>, <span class="fmt40">Bang</span>, <span class="fmt40">Bang</span>, <span class="fmt40">Bang</span>. </pre>
+<pre> </pre>
+<pre>Davi foi puxado para o chão, mas não sentia mais a criatura fazendo força para rasgá-lo. </pre>
+<pre> </pre>
+<pre>Quando abriu os olhos, conseguiu ver Alice aparecer nua, apenas com uma pistola em mãos, correndo em sua direção. Com <span class="fmt40">sua</span> ajuda ele conseguiu levantar e foi levado direto para dentro da casa.  </pre>
+<pre> </pre>
+<pre>Alice tirou sua camisa e o colocou sentado em uma cadeira perto de uma pequena mesa de madeira, onde deixou sua arma. </pre>
+<pre> </pre>
+<pre>Foi para outro cômodo, quase no mesmo instante ela voltou com um pequeno kit de primeiros socorros, o vidro transparente com o líquido vermelho e uma garrafa de bebida alcoólica. Organizou tudo em cima da mesa para começar a ajudá-lo. </pre>
+<pre> </pre>
+<pre>Davi foi abrir a garrafa de álcool -- Hum! -- Queria acreditar que o estrago não era tanto, mas não conseguiu nem abrir uma garrafa com sua mão direita. </pre>
+<pre> </pre>
+<pre>Alice a abriu e entregou para ele -- E beba o outro também -- Falou enquanto abria o pequeno vidro. </pre>
+<pre> </pre>
+<pre>-- E eu pensando que ia finalmente poder parar de tomar isso -- Disse enquanto tomou metade do vidro -- Não sei o que é pior, beber álcool ou esse remédio. </pre>
+<pre> </pre>
+<pre>-- O pior é você quase morrer! </pre>
+<pre> </pre>
+<pre>Alice começou a costurar <span class="fmt40">a</span> carne que <span class="fmt40">a</span> criatura quase arrancou completamente de seu ombro. </pre>
+<pre> </pre>
+<pre>Davi retornou ao silêncio, tentando ficar o mais imóvel possível, esperando sua amada terminar os pontos e colocar uma tala improvisada em seu braço.  </pre>
+<pre> </pre>
+<pre>Quando ela terminou ele respondeu calmamente -- Juro que não estou me machucando de propósito, eu realmente estou tentando ficar melhor. </pre>
+<pre> </pre>
+<pre>-- Sei disso, mas fico nervosa mesmo assim. Não quero nem imaginar que pode ser a última vez que eu te veja. </pre>
+<pre> </pre>
+<pre>Os dois ficaram em silêncio por um tempo, que foi quebrado quando uma lâmpada que estava sobre eles se apagou -- Você devia ter vindo junto comigo para o banho, perdeu um maravilhoso banho quente. </pre>
+<pre> </pre>
+<pre>-- Eu devia -- Davi deu um beijo em Alice e fez um carinho em seu rosto com a parte de trás <span class="fmt40">de</span> sua mão esquerda -- Vou tomar meu banho frio e daqui a pouco me junto a você. </pre>
+<pre> </pre>
+<pre>Depois de seu banho, ele voltou para ela, que estava deitada em um pequeno colchonete que eles carregavam na mochila.  </pre>
+<pre> </pre>
+<pre>Antes de se deitar, Davi deu uma olhada a sua volta, viu a mesa organizada com algumas velas que iluminavam o cômodo. No lugar da porta que tombou havia um grande armário que foi arrastado para impedir qualquer um de entrar, não era só na porta, mas também tinha móveis por todas as janelas. </pre>
+<pre> </pre>
+<pre><span class="fmt18">%Antes</span><span class="fmt18"> </span><span class="fmt18">de</span><span class="fmt18"> </span><span class="fmt18">se</span><span class="fmt18"> </span><span class="fmt18">deitar,</span><span class="fmt18"> </span><span class="fmt18">Davi</span><span class="fmt18"> </span><span class="fmt18">foi</span><span class="fmt18"> </span><span class="fmt18">olhar</span><span class="fmt18"> </span><span class="fmt18">a</span><span class="fmt18"> </span><span class="fmt18">porta</span><span class="fmt18"> </span><span class="fmt18">que</span><span class="fmt18"> </span><span class="fmt18">tinha</span><span class="fmt18"> </span><span class="fmt18">tombado,</span><span class="fmt18"> </span><span class="fmt18">em</span><span class="fmt18"> </span><span class="fmt18">seu</span><span class="fmt18"> </span><span class="fmt18">lugar</span><span class="fmt18"> </span><span class="fmt18">havia</span><span class="fmt18"> </span><span class="fmt18">um</span><span class="fmt18"> </span><span class="fmt18">grande</span><span class="fmt18"> </span><span class="fmt18">armário</span><span class="fmt18"> </span><span class="fmt18">que</span><span class="fmt18"> </span><span class="fmt18">tinha</span><span class="fmt18"> </span><span class="fmt18">sido</span><span class="fmt18"> </span><span class="fmt18">arrastado</span><span class="fmt18"> </span><span class="fmt18">para</span><span class="fmt18"> </span><span class="fmt18">impedir</span><span class="fmt18"> </span><span class="fmt18">qualquer</span><span class="fmt18"> </span><span class="fmt18">um</span><span class="fmt18"> </span><span class="fmt18">de</span><span class="fmt18"> </span><span class="fmt18">entrar.</span><span class="fmt18"> </span><span class="fmt18">Viu</span><span class="fmt18"> </span><span class="fmt18">que</span><span class="fmt18"> </span><span class="fmt18">não</span><span class="fmt18"> </span><span class="fmt18">era</span><span class="fmt18"> </span><span class="fmt18">só</span><span class="fmt18"> </span><span class="fmt18">na</span><span class="fmt18"> </span><span class="fmt18">porta,</span><span class="fmt18"> </span><span class="fmt18">mas</span><span class="fmt18"> </span><span class="fmt18">também</span><span class="fmt18"> </span><span class="fmt18">tinha</span><span class="fmt18"> </span><span class="fmt18">móveis</span><span class="fmt18"> </span><span class="fmt18">por</span><span class="fmt18"> </span><span class="fmt18">todas</span><span class="fmt18"> </span><span class="fmt18">as</span><span class="fmt18"> </span><span class="fmt18">janelas.</span> </pre>
+<pre> </pre>
+<pre>-- Eu já cuidei de tudo Amor -- Disse Alice, deitada no colchonete -- Não precisa se preocupar, já pode vir dormir. </pre>
+<pre> </pre>
+<pre>-- Não antes de você tomar o seu comprimido -- Davi foi até sua mochila que agora estava dentro da casa, retirou um comprimido e entregou para Alice -- Tenho certeza que depois de tudo isso você se esqueceu dele. </pre>
+<pre> </pre>
+<pre>-- Isso não é verdade -- Falou Alice enquanto tomava o remédio que tinha esquecido. </pre>
+<pre> </pre>
+<pre>Davi temia por ter se machucado e quebrado seu braço direito, já que teriam <span class="fmt40">que</span> esperá-lo melhorar, mas não tinham tempo suficiente para isso, afinal, Alice precisava daqueles comprimidos sem falta. Mas no momento que se deitou e sua amada o apertou com força entre seus braços, não ficou mais preocupado, sabia que tudo daria certo, ele faria tudo dar certo. </pre></body></html>

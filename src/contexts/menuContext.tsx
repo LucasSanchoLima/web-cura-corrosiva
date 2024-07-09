@@ -9,7 +9,9 @@ interface MenuContextProviderProps {
 
 interface MenuContextProps {
   setPaginaSelecionada: Dispatch<SetStateAction<number>>;
+  setMenuConta: Dispatch<SetStateAction<boolean>>;
   paginaSelecionada: number;
+  menuConta: boolean;
 }
 
 const nomePagina: { [key: string]: number } = {
@@ -22,9 +24,10 @@ const MenuContext = createContext<MenuContextProps>({} as MenuContextProps);
 
 export function MenuContextProvider({ children }: MenuContextProviderProps) {
   const [paginaSelecionada, setPaginaSelecionada] = useState(nomePagina[usePathname()]);
+  const [menuConta, setMenuConta] = useState(false);
   const value = useMemo(() => {
-    return { paginaSelecionada, setPaginaSelecionada };
-  }, [paginaSelecionada]);
+    return { paginaSelecionada, menuConta, setPaginaSelecionada, setMenuConta };
+  }, [paginaSelecionada, menuConta]);
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>;
 }
 
