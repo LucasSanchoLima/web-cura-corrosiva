@@ -20,7 +20,7 @@ export default function HeaderMobile() {
   return (
     <header className={`fixed w-full z-10 text-white flex flex-wrap bg-zinc-900 h-9 top-0 drop-shadow-md select-none ${FontMaquina.className} `}>
       <div className="flex justify-between px-4 w-full">
-        <div className="w-1/3">
+        <div className="w-1/3 flex items-center">
           <button
             className="my-auto "
             onClick={() => {
@@ -41,10 +41,10 @@ export default function HeaderMobile() {
             className="my-auto"
             href={"/"}
           >
-            <p className={`${RomanAntique.className} text-xl`}>Cura Corrosiva</p>
+            <p className={`${RomanAntique.className} text-nowrap text-xl`}>Cura Corrosiva</p>
           </Link>
         </div>
-        <div className="w-1/3 flex justify-end">
+        <div className="w-1/3 flex items-center justify-end">
           {user ? (
             <button
               className={menuConta ? "text-zinc-400" : "text-zinc-100"}
