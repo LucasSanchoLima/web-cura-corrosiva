@@ -66,7 +66,7 @@ export default async function Livro({ params }: LivroProps) {
         </div>
         <div className="w-1/3 flex justify-end">
           <Link
-            className="bg-zinc-900 p-5 rounded-xl"
+            className={`${ArcoToNumero[arco] <= 8 ? "bg-zinc-900" : "bg-sky-900"}  p-5 rounded-xl`}
             href={proximoArco()}
           >
             <GrNext />
