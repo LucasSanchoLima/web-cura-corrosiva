@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useMemo, useState } from "react";
 
 interface PopUpContextProviderProps {
   children: ReactNode;
@@ -12,6 +12,7 @@ interface PopUpContextProps {
   textoBotao: string;
   qualPopUp: number;
   mudaEstadoPopUp: (valor: number) => void;
+  setQualPopUp: Dispatch<SetStateAction<number>>;
 }
 
 // sem = 0
@@ -47,7 +48,7 @@ export function PopUpContextProvider({ children }: PopUpContextProviderProps) {
   }
 
   const value = useMemo(() => {
-    return { qualPopUp, titulo, textoBaixo, textoBotao, mudaEstadoPopUp };
+    return { qualPopUp, titulo, textoBaixo, textoBotao, mudaEstadoPopUp, setQualPopUp };
   }, [qualPopUp]);
   return <PopUpContext.Provider value={value}>{children}</PopUpContext.Provider>;
 }
