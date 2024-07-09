@@ -43,7 +43,7 @@ export default async function Livro({ params }: LivroProps) {
     const resultado = ArcoToNumero[arco] + 1;
 
     if (resultado > 8) {
-      return "/livro";
+      return "/obrigado";
     }
 
     return "/livro/" + numeroToNomeArco[resultado];
