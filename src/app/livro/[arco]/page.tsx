@@ -62,7 +62,7 @@ export default async function Livro({ params }: LivroProps) {
           </Link>
         </div>
         <div className="w-1/3 flex justify-center">
-          <p className={`text-center bg-zinc-900 indent-0 rounded p-5 ${FontMaquina.className}`}>{numerToText[ArcoToNumero[arco]]}</p>
+          <p className={`text-center text-lg bg-zinc-900 indent-0 rounded p-5 ${FontMaquina.className}`}>{numerToText[ArcoToNumero[arco]]}</p>
         </div>
         <div className="w-1/3 flex justify-end">
           <Link
