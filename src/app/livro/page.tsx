@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Livro() {
   return (
     <div className={`w-full flex items-center flex-col text-center ${FontMaquina.className}`}>
-      <div className="flex w-full md:w-auto items-center rounded-lg md:mt-10 flex-col bg-zinc-900">
+      <div className="flex w-full md:w-auto items-center rounded-lg md:my-10 flex-col bg-zinc-900">
         <p className="p-7 w-full  text-4xl bg-zinc-800">Arco 1</p>
 
         <p className="md:m-3 md:mt-10 p-5 w-full md:w-96 bg-zinc-800 md:rounded text-xl">Capítulo 1</p>
