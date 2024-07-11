@@ -51,44 +51,24 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     setLoading(false);
   });
 
+  // async function signInWithGoogle() {
+  //   const provider = new GoogleAuthProvider();
+  //   await signInWithRedirect(auth, provider);
+  // }
+
+  // async function handleRedirectResult() {
+  //   const response = await getRedirectResult(auth);
+
+  //   console.log(response);
+  // }
+
+  // // handleRedirectResult();
+
+  // useEffect(() => {
+  //   handleRedirectResult();
+  // }, []);
+
   async function signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    await signInWithRedirect(auth, provider);
-  }
-
-  async function handleRedirectResult() {
-    try {
-      
-      const result = await getRedirectResult(auth);
-      console.log("result: ", result);
-      
-    if (!result) return;
-    
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    
-    const user = result.user;
-    
-    setUser(user);
-   } catch (err) {
-    console.error(err)
-   }
-
-    // .then((result) => {
-    //   console.log(result);
-    //   if (result) {
-    //     setUser(result.user);
-    //   }
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
-  }
-
-  useEffect(() => {
-    handleRedirectResult();
-  }, []);
-
-  async function signInWithGoogle2() {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);

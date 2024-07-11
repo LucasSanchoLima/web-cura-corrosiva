@@ -2,10 +2,9 @@
 
 import { usePopUpContext } from "@/contexts/popUpContext";
 import LoginCadastro from "../logincadastro/LoginCadastro";
-import { useActionState } from "react";
 
 export default function PopUp() {
-  const { qualPopUp, setQualPopUp } = usePopUpContext();
+  const { qualPopUp } = usePopUpContext();
 
   if (!qualPopUp) {
     return <></>;

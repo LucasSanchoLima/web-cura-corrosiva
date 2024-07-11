@@ -47,6 +47,15 @@ export default function HeaderDesktop() {
             >
               <p className={`px-1.5 fontMaquina ${paginaSelecionada == 2 ? "font-medium" : "font-small text-sm"}`}>Novidades</p>
             </Link> */}
+            {/* <Link
+              href="/mensagem"
+              className={`mx-3 ${paginaSelecionada == 3 ? "border-b-2" : ""} border-sky-700`}
+              onClick={() => {
+                setPaginaSelecionada(3);
+              }}
+            >
+              <p className={`px-1.5 fontMaquina ${paginaSelecionada == 3 ? "font-medium" : "font-small text-sm"}`}>Novidades</p>
+            </Link> */}
           </div>
         </div>
         <div className="w-1/3 flex justify-end">
