@@ -4,6 +4,7 @@ import { auth } from "@/utils/firebase";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
+  getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
@@ -11,11 +12,12 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   User,
   validatePassword,
 } from "firebase/auth";
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 
 interface UserContextProps {
   user: User | null;
@@ -50,13 +52,49 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   });
 
   async function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    await signInWithRedirect(auth, provider);
+  }
+
+  async function handleRedirectResult() {
+    try {
+      
+      const result = await getRedirectResult(auth);
+      console.log("result: ", result);
+      
+    if (!result) return;
+    
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    
+    const user = result.user;
+    
+    setUser(user);
+   } catch (err) {
+    console.error(err)
+   }
+
+    // .then((result) => {
+    //   console.log(result);
+    //   if (result) {
+    //     setUser(result.user);
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
+  }
+
+  useEffect(() => {
+    handleRedirectResult();
+  }, []);
+
+  async function signInWithGoogle2() {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
+      // await signInWithRedirect(auth, provider);
 
       const credential = GoogleAuthProvider.credentialFromResult(result);
-
-      const token = credential?.accessToken;
 
       const user = result.user;
 
