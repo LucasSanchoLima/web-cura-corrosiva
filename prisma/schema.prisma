@@ -13,16 +13,75 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model LITradutorSaida {
+//   id         Int          @id @default(autoincrement())
+//   nome       String
+//   lITradutor LITradutor[]
+// }
+
+// model LITradutor {
+//   entrada String          @unique
+//   saidaId Int
+//   saida   LITradutorSaida @relation(fields: [saidaId], references: [id])
+// }
+
+// model LIMensagem {
+//   id       Int      @id @default(autoincrement())
+//   mensagem String
+//   data     DateTime @default(now())
+// }
+
+model Newsletter {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+}
+
 model Usuario {
-  id            String     @id
-  email         String     @unique
-  emailCatarse  String     @unique
-  tier          Int        @db.SmallInt
-  config        Json
-  mensagens     Mensagem[]
-  criadoEm      DateTime   @default(now())
+  id                 String               @id @default(cuid())
+  email              String               @unique
+  emailPagamento     String               @unique
+  verificado         Boolean              @default(false)
+  tier               Int                  @default(0) @db.SmallInt
+  enviarMensagem     Boolean              @default(false)
+  config             Json
+  mensagens          Mensagem[]
+  criadoEm           DateTime             @default(now())
+  atuallizadoEm      DateTime             @updatedAt
+  acesso             Acesso[]
+  Pagamentos         Pagamentos[]
+  livro              Livro[]
+  Historico          HistoricoLivro[]
+  HistoricoAtividade HistoricoAtividade[]
+}
+
+model HistoricoAtividade {
+  id          Int          @id @default(autoincrement())
+  log         String
+  usuarioId   String
+  usuario     Usuario      @relation(fields: [usuarioId], references: [id])
+  ip          String       @db.Inet
+  dispositivo Dispositivos
+  data        DateTime     @default(now())
+}
+
+model HistoricoLivro {
+  id            Int        @id @default(autoincrement())
+  terminado     Boolean    @default(false)
+  ultimoCapLido Int
+  capitulo      LivroParte @relation(fields: [ultimoCapLido], references: [id])
+  livroId       Int
+  livro         Livro      @relation(fields: [livroId], references: [id])
+  usuarioId     String
+  usuario       Usuario    @relation(fields: [usuarioId], references: [id])
   atuallizadoEm DateTime   @updatedAt
-  acesso        Acesso[]
+}
+
+model Pagamentos {
+  id        Int     @id @default(autoincrement())
+  usuarioId String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  tier      Int
+  valor     Decimal @db.Money
 }
 
 model Acesso {
@@ -34,13 +93,6 @@ model Acesso {
   data        DateTime     @default(now())
 }
 
-enum Dispositivos {
-  DESKTOP
-  CELULAR
-  TABLET
-  OUTROS
-}
-
 model Mensagem {
   id        Int      @id @default(autoincrement())
   usuarioId String
@@ -48,4 +100,52 @@ model Mensagem {
   direcao   Boolean
   conteudo  String
   data      DateTime @default(now())
+}
+
+model Banidos {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+}
+
+model LivroParagrafo {
+  id         Int        @id @default(autoincrement())
+  texto      String
+  parteId    Int
+  livroParte LivroParte @relation(fields: [parteId], references: [id])
+  config     Json
+}
+
+model LivroParte {
+  id             Int              @id @default(autoincrement())
+  nome           String
+  livroId        Int
+  livro          Livro            @relation(fields: [livroId], references: [id])
+  config         Json
+  LivroParagrafo LivroParagrafo[]
+  Historico      HistoricoLivro[]
+}
+
+model Livro {
+  id             Int              @id @default(autoincrement())
+  nome           String
+  usuarioId      String
+  usuario        Usuario          @relation(fields: [usuarioId], references: [id])
+  publico        Boolean          @default(false)
+  dataCriado     DateTime         @default(now())
+  dataAtualizado DateTime         @updatedAt
+  LivroParte     LivroParte[]
+  Historico      HistoricoLivro[]
+}
+
+enum Dispositivos {
+  DESKTOP
+  CELULAR
+  TABLET
+  OUTROS
+}
+
+enum StatusLeitor {
+  LENDO
+  QUERENDO
+  FINALIZADO
 }

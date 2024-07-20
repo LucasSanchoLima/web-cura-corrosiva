@@ -41,6 +41,12 @@ export default function LoginCadastro() {
 
   function cadastrar(data: any) {
     const { email, password, passwordCheck } = data as FormProps;
+
+    if (password.length < 8) {
+      console.error("Senha muito curta");
+      return;
+    }
+
     if (password == passwordCheck) {
       registerUser(email, password)
         .then(() => {
@@ -70,6 +76,7 @@ export default function LoginCadastro() {
         X
       </button>
       <p className={`text-4xl text-center my-7 ${FontMaquina.className}`}>{titulo}</p>
+      {/* Login com Google */}
       {qualPopUp != 3 ? (
         <button
           className="rounded-full w-56 h-8 sm:h-10 bg-white flex flex-row justify-center"
@@ -87,6 +94,7 @@ export default function LoginCadastro() {
       ) : (
         <></>
       )}
+      {/* Login Inicio */}
       {qualPopUp == 1 ? (
         <form
           onSubmit={handleSubmit(login)}
@@ -123,7 +131,9 @@ export default function LoginCadastro() {
             <p>{textoBotao}</p>
           </button>
         </form>
-      ) : qualPopUp == 2 ? (
+      ) : // Login Final
+      qualPopUp == 2 ? (
+        // Cadastro Inicio
         <form
           onSubmit={handleSubmit(cadastrar)}
           className=" my-5 mx-20 flex flex-col"
@@ -142,7 +152,7 @@ export default function LoginCadastro() {
           ></input>
           <p className="mt-3 mb-1 ml-2 text-sm sm:text-base">Confirmar Senha</p>
           <input
-            type="text"
+            type="password"
             {...register("passwordCheck", { required: true })}
             className="rounded-full sm:w-96 h-7 sm:h-10 bg-white p-3 text-zinc-900 flex flex-row justify-center"
           ></input>
@@ -153,6 +163,8 @@ export default function LoginCadastro() {
           ></input>
         </form>
       ) : (
+        // Cadastro Final
+        // Esqueci Minha Senha Inicio
         <form
           onSubmit={handleSubmit(esqueci)}
           className=" my-5 mx-20 flex flex-col"
@@ -165,10 +177,11 @@ export default function LoginCadastro() {
           ></input>
           <input
             type="submit"
-            className={`mx-auto my-5 px-5 sm:py-1 sm:px-5 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
+            className={`mx-auto my-5 px-5 sm:py-1 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
             value={textoBotao}
           ></input>
         </form>
+        // Esqueci Minha Senha Final
       )}
       {qualPopUp == 1 ? (
         <button

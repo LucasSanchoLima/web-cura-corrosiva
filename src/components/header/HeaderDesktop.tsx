@@ -6,17 +6,32 @@ import { useMenuContext } from "@/contexts/menuContext";
 import { FontMaquina } from "@/fonts/fonts";
 import { useUserContext } from "@/contexts/userContext";
 import { usePopUpContext } from "@/contexts/popUpContext";
+import { redirect } from "next/navigation";
+import { inscreverNewsletter } from "@/server/server";
 
 export default function HeaderDesktop() {
-  const { paginaSelecionada, setPaginaSelecionada, menuConta, setMenuConta } = useMenuContext();
+  const { paginaSelecionada, setPaginaSelecionada, menuConta, setMenuConta, newsLetter, setNewsLetter } = useMenuContext();
   const { mudaEstadoPopUp } = usePopUpContext();
   const { logOut, user } = useUserContext();
+
+  async function newsletter(formData: FormData) {
+    await inscreverNewsletter(formData);
+    setNewsLetter(false);
+  }
 
   return (
     <header className={`fixed w-full text-white overflow-hidden top-0 ${FontMaquina.className}`}>
       <div className="flex justify-between bg-zinc-900 px-4">
         <div className="w-1/3 flex justify-start">
-          <BotaoApoiase texto="Apoie o Projeto" />
+          {/* <BotaoApoiase texto="Apoie o Projeto" /> */}
+          <button
+            className="prevent-select bg-sky-700 rounded px-2 my-1"
+            onClick={() => {
+              setNewsLetter(!newsLetter);
+            }}
+          >
+            Receber novidades
+          </button>
         </div>
         <div className="w-1/3 flex justify-center">
           <div className="items-center flex justify-between text-center">
@@ -91,7 +106,16 @@ export default function HeaderDesktop() {
       </div>
       {user ? (
         menuConta ? (
-          <div className="flex flex-col w-40 rounded-b-xl p-3 bg-zinc-900 fixed right-0">
+          <div className="flex flex-col rounded-b-xl p-3 bg-zinc-900 fixed right-0">
+            {/* <Link
+              onClick={() => {
+                setMenuConta(false);
+              }}
+              href={"/conta"}
+              className="text-center mx-8"
+            >
+              Minha Conta
+            </Link> */}
             <button
               onClick={() => {
                 logOut();
@@ -105,6 +129,28 @@ export default function HeaderDesktop() {
         ) : (
           <></>
         )
+      ) : (
+        <></>
+      )}
+      {newsLetter ? (
+        <div className=" rounded-b-xl p-3 w-96 bg-zinc-900 fixed left-0">
+          <form
+            action={newsletter}
+            className="flex flex-col"
+          >
+            <p className="mb-1 ml-2 text-sm sm:text-base">E-mail:</p>
+            <input
+              className="rounded-full bg-white p-1 pl-3 text-zinc-900"
+              type="text"
+              name="email"
+            />
+            <input
+              className="mt-2 bg-sky-800 rounded-full px-5 mx-auto text-lg cursor-pointer"
+              type="submit"
+              value="Enviar"
+            />
+          </form>
+        </div>
       ) : (
         <></>
       )}

@@ -4,6 +4,7 @@ import { auth } from "@/utils/firebase";
 import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
+  getIdTokenResult,
   getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -51,38 +52,26 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     setLoading(false);
   });
 
-  // async function signInWithGoogle() {
-  //   const provider = new GoogleAuthProvider();
-  //   await signInWithRedirect(auth, provider);
-  // }
-
-  // async function handleRedirectResult() {
-  //   const response = await getRedirectResult(auth);
-
-  //   console.log(response);
-  // }
-
-  // // handleRedirectResult();
-
-  // useEffect(() => {
-  //   handleRedirectResult();
-  // }, []);
-
   async function signInWithGoogle() {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      // await signInWithRedirect(auth, provider);
 
       const credential = GoogleAuthProvider.credentialFromResult(result);
 
       const user = result.user;
 
       setUser(user);
+      const token = await user!.getIdToken();
+      const request = { headers: { Authorization: "Bearer " + token }, method: "POST" };
+      await fetch("/api/cadastro", request);
+      console.log(user);
     } catch (error) {
       console.error(error);
     }
   }
+
+  auth;
 
   async function logOut() {
     try {
@@ -99,6 +88,9 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
       const user = result.user;
 
       setUser(user);
+      const token = await user!.getIdToken();
+      const request = { headers: { Authorization: "Bearer " + token }, method: "POST" };
+      await fetch("/api/cadastro", request);
     } catch (error) {
       console.error(error);
     }

@@ -10,12 +10,17 @@ import { RomanAntique, FontMaquina } from "@/fonts/fonts";
 import { usePopUpContext } from "@/contexts/popUpContext";
 import { useUserContext } from "@/contexts/userContext";
 import { useMenuContext } from "@/contexts/menuContext";
+import { inscreverNewsletter } from "@/server/server";
 
 export default function HeaderMobile() {
-  const [menu, setMenu] = useState(false);
   const { mudaEstadoPopUp } = usePopUpContext();
   const { user, logOut } = useUserContext();
-  const { menuConta, setMenuConta } = useMenuContext();
+  const { menuConta, setMenuConta, menuMobile, setMenuMobile } = useMenuContext();
+
+  async function newsletter(formData: FormData) {
+    await inscreverNewsletter(formData);
+    setMenuMobile(false);
+  }
 
   return (
     <header className={`fixed w-full z-10 text-white flex flex-wrap bg-zinc-900 h-9 top-0 drop-shadow-md select-none ${FontMaquina.className} `}>
@@ -24,7 +29,7 @@ export default function HeaderMobile() {
           <button
             className="my-auto "
             onClick={() => {
-              setMenu(!menu);
+              setMenuMobile(!menuMobile);
               if (menuConta) {
                 setMenuConta(false);
               }
@@ -32,7 +37,7 @@ export default function HeaderMobile() {
           >
             <IoMenu
               size={24}
-              className={menu ? "stroke-zinc-500" : "stroke-zinc-200"}
+              className={menuMobile ? "stroke-zinc-500" : "stroke-zinc-200"}
             />
           </button>
         </div>
@@ -50,8 +55,8 @@ export default function HeaderMobile() {
               className={menuConta ? "text-zinc-400" : "text-zinc-100"}
               onClick={() => {
                 setMenuConta(!menuConta);
-                if (menu) {
-                  setMenu(false);
+                if (menuMobile) {
+                  setMenuMobile(false);
                 }
               }}
             >
@@ -72,12 +77,12 @@ export default function HeaderMobile() {
           )}
         </div>
       </div>
-      <div className={`w-full bg-zinc-900 flex flex-wrap justify-center  ${menu ? "" : "-translate-y-60"}`}>
+      <div className={`w-full bg-zinc-900 flex flex-wrap justify-center  ${menuMobile ? "" : "-translate-y-80"}`}>
         <Link
           href="/"
           className="bg-zinc-800 w-3/5 py-1 rounded my-2"
           onClick={() => {
-            setMenu(false);
+            setMenuMobile(false);
           }}
         >
           <p className="text-center">Home</p>
@@ -86,7 +91,7 @@ export default function HeaderMobile() {
           href="/livro"
           className="bg-zinc-800 w-3/5 py-1 rounded my-2"
           onClick={() => {
-            setMenu(false);
+            setMenuMobile(false);
           }}
         >
           <p className="text-center">Livro</p>
@@ -100,13 +105,51 @@ export default function HeaderMobile() {
         >
           <p className="text-center">Novidades</p>
         </Link> */}
+        {/* <Link
+          href="/mansagem"
+          className="bg-zinc-800 w-3/5 py-1 rounded my-2"
+          onClick={() => {
+            setMenu(false);
+          }}
+        >
+          <p className="text-center">Mensagens</p>
+        </Link> */}
+        <div className="bg-zinc-800 w-3/5 py-1 rounded my-2">
+          <p className="text-center">Receber Novidades</p>
 
-        <BotaoApoiase
+          <form
+            action={newsletter}
+            className="flex flex-col mx-2"
+          >
+            <p className="mb-1 ml-2 text-xs">E-mail:</p>
+            <input
+              className="rounded-full bg-white p-1 pl-3 text-sm text-zinc-900"
+              type="email"
+              name="email"
+            />
+            <input
+              className="mt-2 bg-sky-800 rounded-full px-5 mx-auto cursor-pointer"
+              type="submit"
+              value="Enviar"
+            />
+          </form>
+        </div>
+        {/* <BotaoApoiase
           texto="Apoie"
           mobile
-        />
+        /> */}
       </div>
-      <div className={`w-full fixed bg-zinc-900 flex flex-wrap justify-center top-9 ${menuConta ? "" : "-translate-y-60"}`}>
+      <div className={`w-full fixed bg-zinc-900 flex flex-col justify-center top-9 ${menuConta ? "" : "-translate-y-60"}`}>
+        {/* <Link
+          onClick={() => {
+            setMenuConta(false);
+          }}
+          href={"/conta"}
+          className="my-1 p-2 text-center"
+        >
+          Minha Conta
+        </Link> */}
+
         <button
           onClick={() => {
             logOut();

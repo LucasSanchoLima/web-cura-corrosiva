@@ -52,6 +52,7 @@ export default async function Livro({ params }: LivroProps) {
   return (
     <div className={RomanAntique.className + " text-zinc-300 max-w-6xl mx-auto mb-20 text-justify p-3 indent-4 sm:indent-8 text-2xl"}>
       <Leitor texto={livroHtml} />
+      {/* Parte de baixo */}
       <div className="flex flex-row items-center mt-10">
         <div className="w-1/3 flex justify-start">
           <Link
