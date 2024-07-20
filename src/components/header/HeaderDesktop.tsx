@@ -22,8 +22,8 @@ export default function HeaderDesktop() {
   return (
     <header className={`fixed w-full text-white overflow-hidden top-0 ${FontMaquina.className}`}>
       <div className="flex justify-between bg-zinc-900 px-4">
-        <div className="w-1/3 flex justify-start">
-          {/* <BotaoApoiase texto="Apoie o Projeto" /> */}
+        {/* <div className="w-1/3 flex justify-start">
+          
           <button
             className="prevent-select bg-sky-700 rounded px-2 my-1"
             onClick={() => {
@@ -32,7 +32,7 @@ export default function HeaderDesktop() {
           >
             Receber novidades
           </button>
-        </div>
+        </div> */}
         <div className="w-1/3 flex justify-center">
           <div className="items-center flex justify-between text-center">
             <Link
