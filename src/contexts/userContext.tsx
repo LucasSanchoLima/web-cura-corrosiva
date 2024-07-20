@@ -65,7 +65,6 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
       const token = await user!.getIdToken();
       const request = { headers: { Authorization: "Bearer " + token }, method: "POST" };
       await fetch("/api/cadastro", request);
-      console.log(user);
     } catch (error) {
       console.error(error);
     }

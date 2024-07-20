@@ -126,7 +126,7 @@ export default function LoginCadastro() {
 
           <button
             type="submit"
-            className={`mx-auto my-5 px-5 sm:py-1 sm:px-5 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
+            className={`mx-auto my-5 px-5 sm:py-1 cursor-pointer sm:px-5 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
           >
             <p>{textoBotao}</p>
           </button>
@@ -158,7 +158,7 @@ export default function LoginCadastro() {
           ></input>
           <input
             type="submit"
-            className={`mx-auto my-5 px-5 sm:py-1 sm:px-5 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
+            className={`mx-auto my-5 px-5 sm:py-1 cursor-pointer sm:px-5 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
             value={textoBotao}
           ></input>
         </form>
@@ -177,7 +177,7 @@ export default function LoginCadastro() {
           ></input>
           <input
             type="submit"
-            className={`mx-auto my-5 px-5 sm:py-1 rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
+            className={`mx-auto my-5 px-5 sm:py-1 cursor-pointer rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
             value={textoBotao}
           ></input>
         </form>
