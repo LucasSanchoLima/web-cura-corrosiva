@@ -23,7 +23,7 @@ export default function Obrigado() {
 
   return (
     <div>
-      {/* {popUpNewsLetter ? (
+      {popUpNewsLetter ? (
         <div className={`bg-zinc-800 py-1 rounded m-5 mt-10 sm:h-0 sm:invisible ` + FontMaquina.className}>
           <p className="text-center py-3 text-lg">Receber Novidades</p>
 
@@ -46,7 +46,7 @@ export default function Obrigado() {
         </div>
       ) : (
         <></>
-      )} */}
+      )}
 
       <div className={`max-w-6xl mx-auto mb-20 text-justify p-3 indent-4 sm:indent-8 text-2xl mt-10 ${RomanAntique.className}`}>
         <p className="my-2">Olá caro(a) leitor(a),</p>

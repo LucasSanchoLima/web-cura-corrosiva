@@ -114,7 +114,7 @@ export default function HeaderMobile() {
         >
           <p className="text-center">Mensagens</p>
         </Link> */}
-        {/* <div className="bg-zinc-800 w-3/5 py-1 rounded my-2">
+        <div className="bg-zinc-800 w-3/5 py-1 rounded my-2">
           <p className="text-center">Receber Novidades</p>
 
           <form
@@ -133,7 +133,7 @@ export default function HeaderMobile() {
               value="Enviar"
             />
           </form>
-        </div> */}
+        </div>
         {/* <BotaoApoiase
           texto="Apoie"
           mobile
