@@ -21,7 +21,7 @@ export function Scroll({ pagina }: { pagina: number }) {
   const onScroll = useCallback(() => {
     if (ArcoToNumero[window.location.pathname.split("/")[2]] ==  pagina){
       localStorage.setItem("scroll" + pagina, String(window.scrollY));
-      console.log(String(window.scrollY))
+      // console.log(String(window.scrollY))
     }
   }, []);
 
