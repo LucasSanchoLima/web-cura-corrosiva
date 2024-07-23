@@ -51,7 +51,7 @@ export default function Obrigado() {
       <div className={`max-w-6xl mx-auto mb-20 text-justify p-3 indent-4 sm:indent-8 text-2xl mt-10 ${RomanAntique.className}`}>
         <p className="my-2">Olá caro(a) leitor(a),</p>
         <p className="my-2">
-          Espero que tenha gostado do primeiro de 6 arcos que compõe o livro, ainda temos muita coisa pela frente. Eu irei publicar cada arco assim que ele estiver pronto e todos que estiverem com uma assinatura de pelo menos R$8,75 terão acesso à eles.
+          Espero que tenha gostado do primeiro de 6 arcos que compõe o livro, ainda temos muita coisa pela frente. Eu irei publicar cada arco assim que ele estiver pronto e todos que fizerem uma assinatura terão acesso à eles.
           Deste modo vocês não estarão apenas garantido acesso ao conteúdo, mas também contribuindo para que a obra tenha uma melhor qualidade, afinal, será com esse dinheiro que irei contratar revisores, tradutores e ilustradores.{" "}
         </p>
 
