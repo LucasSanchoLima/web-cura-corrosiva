@@ -1,8 +1,8 @@
-// "use client";
-
 import Leitor from "@/components/leitor/leitor";
+import { Scroll } from "@/components/leitor/Scroll";
 import { RomanAntique, FontMaquina } from "@/fonts/fonts";
 import Link from "next/link";
+import { useEffect } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 interface LivroProps {
@@ -50,7 +50,8 @@ export default async function Livro({ params }: LivroProps) {
   }
 
   return (
-    <div className={RomanAntique.className + " text-zinc-300 max-w-6xl mx-auto mb-20 text-justify p-3 indent-4 sm:indent-8 text-2xl"}>
+    <div className={RomanAntique.className + " select-none text-zinc-300 max-w-6xl mx-auto mb-20 text-justify p-3 indent-4 sm:indent-8 text-2xl"}>
+      <Scroll pagina={ArcoToNumero[arco]} />
       <Leitor texto={livroHtml} />
       {/* Parte de baixo */}
       <div className="flex flex-row items-center mt-10">
@@ -63,7 +64,7 @@ export default async function Livro({ params }: LivroProps) {
           </Link>
         </div>
         <div className="w-1/3 flex justify-center">
-          <p className={`text-center text-sm md:text-lg bg-zinc-900 indent-0 rounded p-5 ${FontMaquina.className}`}>{numerToText[ArcoToNumero[arco]]}</p>
+          <p className={`text-center text-sm md:text-lg bg-zinc-900 indent-0 rounded p-5 text-nowrap ${FontMaquina.className}`}>{numerToText[ArcoToNumero[arco]]}</p>
         </div>
         <div className="w-1/3 flex justify-end">
           <Link
