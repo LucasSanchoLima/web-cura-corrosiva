@@ -1,7 +1,18 @@
+"use client";
 import { FontMaquina } from "@/fonts/fonts";
 import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
+import {useLeitorContext} from "@/contexts/leitorContext"
 
 export default function Livro() {
+  const {lendoCap, setLendoCap} = useLeitorContext()
+
+
+  useEffect(() =>{
+    setLendoCap(Number(localStorage.getItem("CapLendo") ?? 0))
+  }, [])
+  
+
   return (
     <div className={`w-full flex items-center flex-col text-center ${FontMaquina.className}`}>
       <div className="flex w-full md:w-auto items-center rounded-lg md:my-10 flex-col bg-zinc-900">
@@ -12,7 +23,8 @@ export default function Livro() {
         <div className="flex flex-row">
           <Link
             href="/livro/Cap1"
-            className="m-5 p-5 rounded-lg bg-sky-900"
+            className={`m-5 p-5 rounded-lg ${lendoCap == 0 ? "bg-sky-900" : "bg-sky-950"}`}
+            // className={`m-5 p-5 rounded-lg bg-sky-900 `}
           >
             <p className="text-lg">Um pequeno desvio</p>
           </Link>
@@ -22,7 +34,9 @@ export default function Livro() {
           <div className="flex flex-col items-center md:flex-row">
             <Link
               href="/livro/Cap2"
-              className="m-5 p-5 w-44 rounded-lg bg-sky-950"
+              className={`m-5 p-5 w-44 rounded-lg ${lendoCap == 1 ? "bg-sky-900" : "bg-sky-950"}`}
+              // className="m-5 p-5 w-44 rounded-lg bg-sky-950"
+
             >
               <div>
                 <p>Parte 1</p>
@@ -31,7 +45,8 @@ export default function Livro() {
             </Link>
             <Link
               href="/livro/Cap2P2"
-              className="m-5 p-5 w-44 rounded-lg bg-sky-950"
+              className={`m-5 p-5 w-44 rounded-lg ${lendoCap == 2 ? "bg-sky-900" : "bg-sky-950"}`}
+              // className="m-5 p-5 w-44 rounded-lg bg-sky-950"
             >
               <div>
                 <p>Parte 2</p>
@@ -40,7 +55,8 @@ export default function Livro() {
             </Link>
             <Link
               href="/livro/Cap2P3"
-              className="m-5 p-5 w-44 rounded-lg bg-sky-950"
+              className={`m-5 p-5 w-44 rounded-lg ${lendoCap == 3 ? "bg-sky-900" : "bg-sky-950"}`}
+              // className="m-5 p-5 w-44 rounded-lg bg-sky-950"
             >
               <div>
                 <p>Parte 3</p>
@@ -55,7 +71,8 @@ export default function Livro() {
             <div className="flex flex-col items-center md:flex-row">
               <Link
                 href="/livro/Cap3"
-                className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                className={`m-5 p-5 w-60 rounded-lg ${lendoCap == 4 ? "bg-sky-900" : "bg-sky-950"} `}
+                // className="m-5 p-5 w-60 rounded-lg bg-sky-950"
               >
                 <div>
                   <p>Parte 1</p>
@@ -64,7 +81,8 @@ export default function Livro() {
               </Link>
               <Link
                 href="/livro/Cap3P2"
-                className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                className={`m-5 p-5 w-60 rounded-lg ${lendoCap == 5 ? "bg-sky-900" : "bg-sky-950"} `}
+                // className="m-5 p-5 w-60 rounded-lg bg-sky-950"
               >
                 <div>
                   <p>Parte 2</p>
@@ -72,8 +90,10 @@ export default function Livro() {
                 </div>
               </Link>
               <Link
-                href="/livro/Cap3P2"
-                className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                href="/livro/Cap3P3"
+                // className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                className={`m-5 p-5 w-60 rounded-lg ${lendoCap == 6 ? "bg-sky-900" : "bg-sky-950"} `}
+
               >
                 <div>
                   <p>Parte 3</p>
@@ -84,7 +104,9 @@ export default function Livro() {
             <div className="flex flex-col items-center justify-normal md:flex-row md:justify-around">
               <Link
                 href="/livro/Cap3P4"
-                className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                // className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                className={`m-5 p-5 w-60 rounded-lg ${lendoCap == 7 ? "bg-sky-900" : "bg-sky-950"} `}
+
               >
                 <div>
                   <p>Parte 4</p>
@@ -93,7 +115,8 @@ export default function Livro() {
               </Link>
               <Link
                 href="/livro/Cap3P5"
-                className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                // className="m-5 p-5 w-60 rounded-lg bg-sky-950"
+                className={`m-5 p-5 w-60 rounded-lg ${lendoCap == 8 ? "bg-sky-900" : "bg-sky-950"} `}
               >
                 <div>
                   <p>Parte 5</p>

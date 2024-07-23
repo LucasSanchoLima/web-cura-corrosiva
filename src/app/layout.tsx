@@ -6,6 +6,7 @@ import { MenuContextProvider } from "@/contexts/menuContext";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { UserContextProvider } from "@/contexts/userContext";
 import { PopUpContextProvider } from "@/contexts/popUpContext";
+import { LeitorContextProvider } from "@/contexts/leitorContext";
 import PopUp from "@/components/popUp/PopUp";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,7 +31,10 @@ export default function RootLayout({
             <PopUpContextProvider>
               <PopUp />
               <Header />
-              {children}
+              <LeitorContextProvider>
+                {children}
+
+              </LeitorContextProvider>
             </PopUpContextProvider>
           </MenuContextProvider>
         </UserContextProvider>
