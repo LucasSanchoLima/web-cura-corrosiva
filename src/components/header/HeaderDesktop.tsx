@@ -1,18 +1,16 @@
 "use client";
 
-import BotaoApoiase from "../botoes/Botoes";
 import Link from "next/link";
 import { useMenuContext } from "@/contexts/menuContext";
 import { FontMaquina } from "@/fonts/fonts";
 import { useUserContext } from "@/contexts/userContext";
 import { usePopUpContext } from "@/contexts/popUpContext";
-import { redirect } from "next/navigation";
 import { inscreverNewsletter } from "@/server/server";
 
 export default function HeaderDesktop() {
   const { paginaSelecionada, setPaginaSelecionada, menuConta, setMenuConta, newsLetter, setNewsLetter } = useMenuContext();
   const { mudaEstadoPopUp } = usePopUpContext();
-  const { logOut, user } = useUserContext();
+  const { logOut, user, nomeUsuario } = useUserContext();
 
   async function newsletter(formData: FormData) {
     await inscreverNewsletter(formData);
@@ -52,15 +50,15 @@ export default function HeaderDesktop() {
             >
               <p className={`px-1.5 fontMaquina ${paginaSelecionada == 1 ? "font-medium" : "font-small text-sm"}`}>Livro</p>
             </Link>
-            {/* <Link
-              href="/novidades"
+            <Link
+              href="/progresso"
               className={`mx-3 ${paginaSelecionada == 2 ? "border-b-2" : ""} border-sky-700`}
               onClick={() => {
                 setPaginaSelecionada(2);
               }}
             >
-              <p className={`px-1.5 fontMaquina ${paginaSelecionada == 2 ? "font-medium" : "font-small text-sm"}`}>Novidades</p>
-            </Link> */}
+              <p className={`px-1.5 fontMaquina ${paginaSelecionada == 2 ? "font-medium" : "font-small text-sm"}`}>Progresso</p>
+            </Link>
             {/* <Link
               href="/mensagem"
               className={`mx-3 ${paginaSelecionada == 3 ? "border-b-2" : ""} border-sky-700`}
@@ -79,7 +77,7 @@ export default function HeaderDesktop() {
                 setMenuConta(!menuConta);
               }}
             >
-              <p>Logado</p>
+              {nomeUsuario == null ? <p>Logado</p> : <p>{nomeUsuario}</p>}
             </button>
           ) : (
             <div className="flex justify-between my-1.5 w-auto">
@@ -106,7 +104,7 @@ export default function HeaderDesktop() {
       {user ? (
         menuConta ? (
           <div className="flex flex-col rounded-b-xl p-3 bg-zinc-900 fixed right-0">
-            {/* <Link
+            <Link
               onClick={() => {
                 setMenuConta(false);
               }}
@@ -114,7 +112,7 @@ export default function HeaderDesktop() {
               className="text-center mx-8"
             >
               Minha Conta
-            </Link> */}
+            </Link>
             <button
               onClick={() => {
                 logOut();

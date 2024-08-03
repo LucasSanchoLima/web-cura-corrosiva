@@ -19,6 +19,7 @@ interface PopUpContextProps {
 // login = 1
 // cadastro = 2
 // esqueci = 3
+// denunciarComent = 4
 
 const PopUpContext = createContext<PopUpContextProps>({} as PopUpContextProps);
 
@@ -34,16 +35,19 @@ export function PopUpContextProvider({ children }: PopUpContextProviderProps) {
       setTitulo("Login");
       setTextoBaixo("Ainda não tenho uma conta");
       setTextoBotao("Logar");
-    } else {
-      if (valor == 2) {
-        setTitulo("Cadastro");
-        setTextoBaixo("Já tenho uma conta");
-        setTextoBotao("Cadastrar");
-      } else {
-        setTitulo("Esqueci Minha Senha");
-        setTextoBaixo("Voltar");
-        setTextoBotao("Enviar");
-      }
+      return;
+    }
+    if (valor == 2) {
+      setTitulo("Cadastro");
+      setTextoBaixo("Já tenho uma conta");
+      setTextoBotao("Cadastrar");
+      return;
+    }
+    if (valor == 3) {
+      setTitulo("Esqueci Minha Senha");
+      setTextoBaixo("Voltar");
+      setTextoBotao("Enviar");
+      return;
     }
   }
 

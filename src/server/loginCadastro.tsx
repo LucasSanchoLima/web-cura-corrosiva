@@ -8,5 +8,12 @@ export async function jaCadastrado(usuario: DecodedIdToken) {
   const result = await prisma.usuario.findUnique({ where: { email: usuario.email } });
   if (!result) {
     await prisma.usuario.create({ data: { email: usuario.email!, emailPagamento: usuario.email!, verificado: usuario.email_verified, config: {} as Prisma.JsonArray } });
+    return;
   }
+
+  // console.log(usuario.email_verified);
+
+  // if (result.verificado == false && usuario.email_verified) {
+  //   console.log("oi");
+  // }
 }

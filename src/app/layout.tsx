@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   description: "Site do Livro Tudo por Você",
 };
 
+//Usar um useeffect para pegar as informações do servidor de config de usaurio
+//Usar o window.addEvent para salvar informações antes de sair da pagina.
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,10 +33,7 @@ export default function RootLayout({
             <PopUpContextProvider>
               <PopUp />
               <Header />
-              <LeitorContextProvider>
-                {children}
-
-              </LeitorContextProvider>
+              <LeitorContextProvider>{children}</LeitorContextProvider>
             </PopUpContextProvider>
           </MenuContextProvider>
         </UserContextProvider>

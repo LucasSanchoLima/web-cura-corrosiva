@@ -43,5 +43,5 @@ migrations/
 lembrete.txt
 
 # Alpha
-livroInterativo/
-newsletter/
+compose.yaml
+data/

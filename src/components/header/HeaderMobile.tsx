@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import BotaoApoiase from "../botoes/Botoes";
 import Link from "next/link";
 
 import { IoMenu } from "react-icons/io5";
@@ -96,15 +94,15 @@ export default function HeaderMobile() {
         >
           <p className="text-center">Livro</p>
         </Link>
-        {/* <Link
-          href="/novidades"
+        <Link
+          href="/progresso"
           className="bg-zinc-800 w-3/5 py-1 rounded my-2"
           onClick={() => {
-            setMenu(false);
+            setMenuMobile(false);
           }}
         >
-          <p className="text-center">Novidades</p>
-        </Link> */}
+          <p className="text-center">Progresso</p>
+        </Link>
         {/* <Link
           href="/mansagem"
           className="bg-zinc-800 w-3/5 py-1 rounded my-2"

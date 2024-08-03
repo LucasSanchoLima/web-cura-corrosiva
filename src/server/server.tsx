@@ -18,6 +18,6 @@ export async function inscreverNewsletter(formData: FormData) {
   const existe = await prisma.newsletter.findUnique({ where: { email } });
   if (!existe) {
     const result = await prisma.newsletter.create({ data: { email } });
-    console.log(result);
+    // console.log(result);
   }
 }

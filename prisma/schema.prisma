@@ -13,6 +13,168 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Newsletter {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  ativo Boolean @default(true)
+
+  @@map("newsletter")
+}
+
+// model Paragrafo {
+//   id    Int          @id @default(autoincrement())
+//   texto String
+//   Parte ParteLivro[]
+// }
+
+// model ParteLivro {
+//   id          Int          @id @default(autoincrement())
+//   nome        String
+//   paragrafoId Int
+//   paragrafo   Paragrafo    @relation(fields: [paragrafoId], references: [id])
+//   Livro       Livro[]
+//   Usuario     Usuario[]
+//   Comentario  Comentario[]
+
+//   @@map("partelivro")
+// }
+
+// model Livro {
+//   id      Int        @id @default(autoincrement())
+//   nome    String
+//   parteId Int
+//   parte   ParteLivro @relation(fields: [parteId], references: [id])
+
+//   @@map("livro")
+// }
+
+model Usuario {
+  id               String             @id @default(uuid())
+  email            String             @unique
+  emailPagamento   String             @unique //Ver se é neceesário com o Stripe
+  nome             String?            @unique
+  verificado       Boolean            @default(false)
+  tier             Int                @default(0) @db.SmallInt
+  ultimaParteId    Int?
+  // ultimaParte    ParteLivro?  @relation(fields: [ultimaParteId], references: [id])
+  config           Json
+  criadoEm         DateTime           @default(now())
+  atuallizadoEm    DateTime           @updatedAt
+  excluido         Boolean            @default(false)
+  Pagamentos       Pagamentos[]
+  Comentario       Comentario[]
+  // historicoLivro HistoricoLivro[]
+  // Livro          Livro[]
+  PontosComentario PontosComentario[]
+  Denuncia         Denuncia[]
+
+  @@map("usuario")
+}
+
+model Pagamentos {
+  id        Int     @id @default(autoincrement())
+  usuarioId String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  tier      Int
+  valor     Decimal @db.Money
+
+  @@map("pagamentos")
+}
+
+model Banidos {
+  id         Int           @id @default(autoincrement())
+  email      String        @unique
+  comentario String
+  tipo       TipoBanimento
+
+  @@map("banidos")
+}
+
+// model ComentarioPaiFilho {
+//   id         Int        @id @default(autoincrement())
+//   pai        String
+//   filho      String
+//   comentario Comentario @relation(fields: [pai, filho], references: [id])
+// }
+
+model Comentario {
+  id              String           @id @default(uuid())
+  texto           String
+  status          StatusComentario @default(ORIGINAL)
+  pontos          Int              @default(0)
+  usuarioId       String
+  usuario         Usuario          @relation(fields: [usuarioId], references: [id])
+  parteLivroIdURL Int
+  filhos          Comentario[]     @relation("Comentario")
+  pai             Comentario?      @relation("Comentario", fields: [paiId], references: [id])
+  paiId           String?
+
+  // parteLivro    ParteLivro       @relation(fields: [parteLivroId], references: [id])
+  dataCriado       DateTime           @default(now())
+  atuallizadoEm    DateTime           @updatedAt
+  PontosComentario PontosComentario[]
+  // ComentarioPaiFilho ComentarioPaiFilho[]
+  Denuncia         Denuncia[]
+
+  @@map("comentario")
+}
+
+model PontosComentario {
+  id           Int        @id @default(autoincrement())
+  comentarioId String
+  ponto        Int        @default(0) @db.SmallInt
+  usuarioId    String
+  usuario      Usuario    @relation(fields: [usuarioId], references: [id])
+  Comentario   Comentario @relation(fields: [comentarioId], references: [id])
+
+  @@map("pontoscomentario")
+}
+
+model Denuncia {
+  id                   Int           @id @default(autoincrement())
+  tipoDenuncia         TipoBanimento
+  textoDuplicado       String
+  nomeUsuarioDuplicado String
+  observacao           String        @default("")
+  ComentarioId         String
+  comentario           Comentario    @relation(fields: [ComentarioId], references: [id])
+  usuarioId            String
+  usuario              Usuario       @relation(fields: [usuarioId], references: [id])
+}
+
+enum TipoBanimento {
+  ODIO
+  SPOILER
+  OUTRO
+
+  @@map("tipobanimento")
+}
+
+enum StatusComentario {
+  EDITADO
+  EXCLUIDO
+  ORIGINAL
+
+  @@map("statuscomentado")
+}
+
+// enum Dispositivos {
+//   DESKTOP
+//   CELULAR
+//   TABLET
+//   OUTROS
+
+//   @@map("dispositivos")
+// }
+
+// enum StatusLeitor {
+//   LENDO
+//   QUERENDO
+//   FINALIZADO
+
+//   @@map("statusleitor")
+// }
+
 // model LITradutorSaida {
 //   id         Int          @id @default(autoincrement())
 //   nome       String
@@ -31,121 +193,73 @@ datasource db {
 //   data     DateTime @default(now())
 // }
 
-model Newsletter {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-}
+// model HistoricoLivro {
+//   id            Int        @id @default(autoincrement())
+//   terminado     Boolean    @default(false)
+//   ultimoCapLido Int
+//   capitulo      LivroParte @relation(fields: [ultimoCapLido], references: [id])
+//   livroId       Int
+//   livro         Livro      @relation(fields: [livroId], references: [id])
+//   usuarioId     String
+//   usuario       Usuario    @relation(fields: [usuarioId], references: [id])
+//   atuallizadoEm DateTime   @updatedAt
 
-model Usuario {
-  id                 String               @id @default(cuid())
-  email              String               @unique
-  emailPagamento     String               @unique
-  verificado         Boolean              @default(false)
-  tier               Int                  @default(0) @db.SmallInt
-  enviarMensagem     Boolean              @default(false)
-  config             Json
-  mensagens          Mensagem[]
-  criadoEm           DateTime             @default(now())
-  atuallizadoEm      DateTime             @updatedAt
-  acesso             Acesso[]
-  Pagamentos         Pagamentos[]
-  livro              Livro[]
-  Historico          HistoricoLivro[]
-  HistoricoAtividade HistoricoAtividade[]
-}
+//   @@map("historicolivro")
+// }
 
-model HistoricoAtividade {
-  id          Int          @id @default(autoincrement())
-  log         String
-  usuarioId   String
-  usuario     Usuario      @relation(fields: [usuarioId], references: [id])
-  ip          String       @db.Inet
-  dispositivo Dispositivos
-  data        DateTime     @default(now())
-}
+// model Acesso {
+//   id          Int          @id @default(autoincrement())
+//   usuarioId   String
+//   usuario     Usuario      @relation(fields: [usuarioId], references: [id])
+//   ip          String       @db.Inet
+//   dispositivo Dispositivos
+//   data        DateTime     @default(now())
 
-model HistoricoLivro {
-  id            Int        @id @default(autoincrement())
-  terminado     Boolean    @default(false)
-  ultimoCapLido Int
-  capitulo      LivroParte @relation(fields: [ultimoCapLido], references: [id])
-  livroId       Int
-  livro         Livro      @relation(fields: [livroId], references: [id])
-  usuarioId     String
-  usuario       Usuario    @relation(fields: [usuarioId], references: [id])
-  atuallizadoEm DateTime   @updatedAt
-}
+//   @@map("acesso")
+// }
 
-model Pagamentos {
-  id        Int     @id @default(autoincrement())
-  usuarioId String
-  usuario   Usuario @relation(fields: [usuarioId], references: [id])
-  tier      Int
-  valor     Decimal @db.Money
-}
+// model Mensagem {
+//   id        Int      @id @default(autoincrement())
+//   usuarioId String
+//   usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+//   direcao   Boolean
+//   conteudo  String
+//   data      DateTime @default(now())
 
-model Acesso {
-  id          Int          @id @default(autoincrement())
-  usuarioId   String
-  usuario     Usuario      @relation(fields: [usuarioId], references: [id])
-  ip          String       @db.Inet
-  dispositivo Dispositivos
-  data        DateTime     @default(now())
-}
+//   @@map("mensagem")
+// }
+// model LivroParagrafo {
+//   id         Int        @id @default(autoincrement())
+//   texto      String
+//   parteId    Int
+//   livroParte LivroParte @relation(fields: [parteId], references: [id])
+//   config     Json
 
-model Mensagem {
-  id        Int      @id @default(autoincrement())
-  usuarioId String
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
-  direcao   Boolean
-  conteudo  String
-  data      DateTime @default(now())
-}
+//   @@map("livroparagrafo")
+// }
 
-model Banidos {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-}
+// model LivroParte {
+//   id             Int              @id @default(autoincrement())
+//   nome           String
+//   livroId        Int
+//   livro          Livro            @relation(fields: [livroId], references: [id])
+//   config         Json
+//   LivroParagrafo LivroParagrafo[]
+//   Historico      HistoricoLivro[]
 
-model LivroParagrafo {
-  id         Int        @id @default(autoincrement())
-  texto      String
-  parteId    Int
-  livroParte LivroParte @relation(fields: [parteId], references: [id])
-  config     Json
-}
+//   @@map("livroparte")
+// }
 
-model LivroParte {
-  id             Int              @id @default(autoincrement())
-  nome           String
-  livroId        Int
-  livro          Livro            @relation(fields: [livroId], references: [id])
-  config         Json
-  LivroParagrafo LivroParagrafo[]
-  Historico      HistoricoLivro[]
-}
+// model Livro {
+//   id             Int              @id @default(autoincrement())
+//   nome           String
+//   usuarioId      String
+//   // usuario        Usuario          @relation(fields: [usuarioId], references: [id])
+//   publico        Boolean          @default(false)
+//   dataCriado     DateTime         @default(now())
+//   dataAtualizado DateTime         @updatedAt
+//   LivroParte     LivroParte[]
+//   Historico      HistoricoLivro[]
 
-model Livro {
-  id             Int              @id @default(autoincrement())
-  nome           String
-  usuarioId      String
-  usuario        Usuario          @relation(fields: [usuarioId], references: [id])
-  publico        Boolean          @default(false)
-  dataCriado     DateTime         @default(now())
-  dataAtualizado DateTime         @updatedAt
-  LivroParte     LivroParte[]
-  Historico      HistoricoLivro[]
-}
-
-enum Dispositivos {
-  DESKTOP
-  CELULAR
-  TABLET
-  OUTROS
-}
-
-enum StatusLeitor {
-  LENDO
-  QUERENDO
-  FINALIZADO
-}
+//   @@map("livro")
+// }

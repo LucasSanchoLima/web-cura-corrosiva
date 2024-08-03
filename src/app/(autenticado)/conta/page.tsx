@@ -7,7 +7,7 @@ export default function Conta() {
 
   async function enviar() {
     const token = await user!.getIdToken();
-    const request = { headers: { Authorization: token }, method: "POST" };
+    const request = { headers: { Authorization: "Bearer " + token }, method: "POST" };
     const result = await fetch("/api/cadastro", request);
     console.log(await result.json());
   }

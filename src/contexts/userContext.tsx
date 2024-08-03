@@ -1,24 +1,8 @@
 "use client";
 
 import { auth } from "@/utils/firebase";
-import {
-  browserLocalPersistence,
-  createUserWithEmailAndPassword,
-  getIdTokenResult,
-  getRedirectResult,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  setPersistence,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signInWithRedirect,
-  signOut,
-  User,
-  validatePassword,
-} from "firebase/auth";
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
+import { browserLocalPersistence, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signInWithPopup, signOut, User } from "firebase/auth";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 interface UserContextProps {
   user: User | null;
@@ -28,6 +12,9 @@ interface UserContextProps {
   logOut: () => Promise<void>;
   esqueciSenha: (email: string) => Promise<void>;
   verificarEmail: (user: User) => Promise<void>;
+  atualizarInfo: () => void;
+  verificado: boolean;
+  nomeUsuario: string | null;
   loading: boolean;
 }
 
@@ -40,6 +27,8 @@ const userContext = createContext<UserContextProps>({} as UserContextProps);
 export function UserContextProvider({ children }: UserContextProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [nomeUsuario, setNomeUsuario] = useState<string | null>(null);
+  const [verificado, setVerificado] = useState(false);
   setPersistence(auth, browserLocalPersistence);
 
   onAuthStateChanged(auth, (changedUser: User | null) => {
@@ -51,6 +40,16 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
 
     setLoading(false);
   });
+
+  async function atualizarInfo() {
+    const token = await user?.getIdToken();
+    const request = { headers: { Authorization: "Bearer " + token }, method: "POST" };
+    const result = await fetch("/api/infoUsuario", request);
+
+    const info = await result.json();
+    setNomeUsuario(info.nome);
+    setVerificado(info.verificado);
+  }
 
   async function signInWithGoogle() {
     try {
@@ -70,12 +69,13 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     }
   }
 
-  auth;
+  // auth;
 
   async function logOut() {
     try {
       await signOut(auth);
       setUser(null);
+      setNomeUsuario(null);
     } catch (error) {
       console.error(error);
     }
@@ -124,8 +124,8 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   }
 
   const value = useMemo(() => {
-    return { signInWithGoogle, registerUser, loginUser, logOut, esqueciSenha, verificarEmail, loading, user };
-  }, [user, loading]);
+    return { signInWithGoogle, registerUser, loginUser, logOut, esqueciSenha, verificarEmail, atualizarInfo, loading, user, verificado, nomeUsuario };
+  }, [user, loading, nomeUsuario]);
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 }
