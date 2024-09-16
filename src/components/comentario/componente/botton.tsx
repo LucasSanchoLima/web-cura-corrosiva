@@ -54,7 +54,7 @@ export default function ComentarioBotton({ pontos, idComentario }: { pontos: num
           />
         </button>
       </div>
-      <button className={`text-lg sm:text-xl ml-10 p-2 ${FontMaquina.className}`}>Respostas</button>
+      {/* <button className={`text-lg sm:text-xl ml-10 p-2 ${FontMaquina.className}`}>Respostas</button> */}
     </div>
   );
 }

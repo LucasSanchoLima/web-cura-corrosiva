@@ -4,13 +4,17 @@ import { useUserContext } from "@/contexts/userContext";
 import { FontMaquina } from "@/fonts/fonts";
 import { useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { excluirComentario } from "../../funcoes/funcoes";
+import { excluirComentario, denunciarComentario } from "../../funcoes/funcoes";
 import { useComment } from "./ComentarioItem";
+import { useArrayComentarioContext } from "@/contexts/arrayComentarioContext";
+import { usePopUpContext } from "@/contexts/popUpContext";
 
 export default function ComentarioTresPontos() {
   const [menuComentario, setMenuComentario] = useState(false);
   const { nomeUsuario, user } = useUserContext();
   const { comment, setIsEditing } = useComment();
+  const { recarregarComentarios } = useArrayComentarioContext();
+  const { mudaEstadoPopUp } = usePopUpContext();
 
   return (
     <div>
@@ -38,13 +42,27 @@ export default function ComentarioTresPontos() {
                   onClick={async () => {
                     await excluirComentario(await user!.getIdToken(), comment.id);
                     setMenuComentario(false);
+                    recarregarComentarios();
                   }}
                 >
                   Excluir
                 </button>
               </>
             ) : (
-              <button className="p-1 m-1">Denunciar</button>
+              <button
+                onClick={async () => {
+                  if (user == null) {
+                    setMenuComentario(false);
+                    mudaEstadoPopUp(1);
+                  } else {
+                    await denunciarComentario(await user!.getIdToken(), comment.id);
+                    setMenuComentario(false);
+                  }
+                }}
+                className="p-1 m-1"
+              >
+                Denunciar
+              </button>
             )}
           </div>
         </div>

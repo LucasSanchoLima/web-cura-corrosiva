@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -49,24 +50,25 @@ model Newsletter {
 // }
 
 model Usuario {
-  id               String             @id @default(uuid())
-  email            String             @unique
-  emailPagamento   String             @unique //Ver se é neceesário com o Stripe
-  nome             String?            @unique
-  verificado       Boolean            @default(false)
-  tier             Int                @default(0) @db.SmallInt
-  ultimaParteId    Int?
+  id                String             @id @default(uuid())
+  email             String             @unique
+  emailPagamento    String             @unique //Ver se é neceesário com o Stripe
+  nome              String?            @unique
+  verificado        Boolean            @default(false)
+  tier              Int                @default(0) @db.SmallInt
+  ultimaParteId     Int?
   // ultimaParte    ParteLivro?  @relation(fields: [ultimaParteId], references: [id])
-  config           Json
-  criadoEm         DateTime           @default(now())
-  atuallizadoEm    DateTime           @updatedAt
-  excluido         Boolean            @default(false)
-  Pagamentos       Pagamentos[]
-  Comentario       Comentario[]
+  config            Json
+  criadoEm          DateTime           @default(now())
+  atuallizadoEm     DateTime           @updatedAt
+  excluido          Boolean            @default(false)
+  Pagamentos        Pagamentos[]
+  Comentario        Comentario[]
   // historicoLivro HistoricoLivro[]
   // Livro          Livro[]
-  PontosComentario PontosComentario[]
-  Denuncia         Denuncia[]
+  PontosComentario  PontosComentario[]
+  CrimesCometidos   Denuncia[]         @relation(name: "criminoso")
+  CrimesDenunciados Denuncia[]         @relation(name: "acusador")
 
   @@map("usuario")
 }
@@ -131,18 +133,21 @@ model PontosComentario {
 }
 
 model Denuncia {
-  id                   Int           @id @default(autoincrement())
-  tipoDenuncia         TipoBanimento
-  textoDuplicado       String
-  nomeUsuarioDuplicado String
-  observacao           String        @default("")
-  ComentarioId         String
-  comentario           Comentario    @relation(fields: [ComentarioId], references: [id])
-  usuarioId            String
-  usuario              Usuario       @relation(fields: [usuarioId], references: [id])
+  id                     Int           @id @default(autoincrement())
+  tipoDenuncia           TipoBanimento @default(PADRAO)
+  textoDuplicado         String
+  nomeCriminosoDuplicado String
+  observacao             String        @default("")
+  ComentarioId           String
+  comentario             Comentario    @relation(fields: [ComentarioId], references: [id])
+  criminosoId            String
+  criminoso              Usuario       @relation(name: "criminoso", fields: [criminosoId], references: [id])
+  acusadorId             String
+  acusador               Usuario       @relation(name: "acusador", fields: [acusadorId], references: [id])
 }
 
 enum TipoBanimento {
+  PADRAO
   ODIO
   SPOILER
   OUTRO

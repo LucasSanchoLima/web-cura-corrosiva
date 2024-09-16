@@ -1,7 +1,8 @@
-"use server";
-import prisma from "@/utils/prisma";
-import React from "react";
+"use client";
+
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import ComentarioItem from "./ComentarioItem";
+import { useArrayComentarioContext } from "@/contexts/arrayComentarioContext";
 
 export interface ComentarioProps {
   id: string;
@@ -12,31 +13,20 @@ export interface ComentarioProps {
   };
 }
 
-export default async function ComentarioLista({ arco }: { arco: number }) {
-  const comentarios = await prisma.comentario.findMany({
-    orderBy: { pontos: "desc" },
-    where: { parteLivroIdURL: arco, NOT: { status: "EXCLUIDO" } },
-    include: {
-      usuario: true,
-    },
-  });
+export default function ComentarioLista({ arco }: { arco: number }) {
+  const { comentarios, recarregarComentarios, primeiraVez } = useArrayComentarioContext();
+
+  if (primeiraVez) {
+    recarregarComentarios();
+  }
 
   return (
     <div>
       {comentarios.map((comentario) => {
-        let comentarioSanitizado = {
-          id: comentario.id,
-          texto: comentario.texto,
-          pontos: comentario.pontos,
-          usuario: {
-            nome: comentario.usuario.nome,
-          },
-        };
-
         return (
           <ComentarioItem
             key={comentario.id}
-            comment={comentarioSanitizado}
+            comment={comentario}
           />
         );
       })}

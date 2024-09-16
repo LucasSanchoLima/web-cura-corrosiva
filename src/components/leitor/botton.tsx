@@ -5,7 +5,7 @@ import { ArcoToNumero, numeroToNomeArco, numerToText } from "./variaveis";
 import { FontMaquina } from "@/fonts/fonts";
 import { useLeitorContext } from "@/contexts/leitorContext";
 
-export default function LeitorBotton({ arco }: { arco: string }) {
+export default function LeitorBotton() {
   const { idCapAtual } = useLeitorContext();
 
   function arcoAnterior() {

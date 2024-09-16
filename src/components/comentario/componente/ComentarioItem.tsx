@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useMemo, useState } from "react";
-import { ComentarioForm } from "../cliente";
-import { Comentario } from "../comentarioServer";
+import { PreFormulario } from "../preFormulario";
+import { Comentario } from "../comentario";
 import { ComentarioProps } from "./ComentarioLista";
 
 interface ComentarioContextProps {
@@ -17,7 +17,7 @@ export default function ComentarioItem({ comment }: { comment: ComentarioProps }
 
   const memoizedProps = useMemo(() => ({ isEditing, setIsEditing, comment }), [isEditing, setIsEditing, comment]);
 
-  return <CommentContext.Provider value={memoizedProps}>{isEditing ? <ComentarioForm /> : <Comentario />}</CommentContext.Provider>;
+  return <CommentContext.Provider value={memoizedProps}>{isEditing ? <PreFormulario /> : <Comentario />}</CommentContext.Provider>;
 }
 
 export function useComment() {

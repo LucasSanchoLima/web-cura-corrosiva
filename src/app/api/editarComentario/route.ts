@@ -21,17 +21,26 @@ export async function POST(req: Request, res: Response) {
   const body = await requisicao.json();
 
   if (body.texto.search(/\w/) == -1) {
-    return NextResponse.json({ text: "Texto invalido" });
+    return NextResponse.json({ text: "Texto invalido", status: 400 });
   }
 
   const limpo = DOMPurify.sanitize(String(body.texto), { USE_PROFILES: { html: false } });
   const usuario = await prisma.usuario.findUnique({ where: { email: verifiToken.email } });
 
   if (usuario!.verificado == false) {
+    //enviar erro
     return NextResponse.json({ text: "Não verificado", status: 400 });
   }
 
-  await prisma.comentario.create({ data: { usuarioId: usuario!.id, texto: limpo, parteLivroIdURL: body.capitulo, paiId: body.pai } });
+  const comentarioOriginal = await prisma.comentario.findUnique({ where: { id: body.idComentario } });
+
+  if (usuario!.id != comentarioOriginal!.usuarioId) {
+    return NextResponse.json({ text: "Acho que esse não é seu comentário", status: 400 });
+  }
+
+  await prisma.comentario.update({ where: { id: body.idComentario }, data: { status: "EDITADO", texto: body.texto } });
+
+  // await prisma.comentario.create({ data: { usuarioId: usuario!.id, texto: limpo, parteLivroIdURL: body.capitulo, paiId: body.pai } });
 
   return NextResponse.json({ text: "OK" });
 }

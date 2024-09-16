@@ -3,8 +3,9 @@ import { Scroll } from "@/components/leitor/Scroll";
 import { RomanAntique } from "@/fonts/fonts";
 import { ArcoToNumero } from "@/components/leitor/variaveis";
 import LeitorBotton from "@/components/leitor/botton";
-import { ComentarioForm } from "@/components/comentario/cliente";
+import { PreFormulario } from "@/components/comentario/preFormulario";
 import ComentarioLista from "@/components/comentario/componente/ComentarioLista";
+import { ArrayComentarioContextProvider } from "@/contexts/arrayComentarioContext";
 
 export default async function Livro({ params }: { params: { arco: string } }) {
   const { arco } = params;
@@ -21,8 +22,10 @@ export default async function Livro({ params }: { params: { arco: string } }) {
       {/* Aba de Comentarios */}
       <div className="indent-0">
         <p className="w-100 bg-zinc-900 p-3 my-10 text-center">Comentarios</p>
-        <ComentarioForm />
-        <ComentarioLista arco={ArcoToNumero[arco]} />
+        <ArrayComentarioContextProvider arco={ArcoToNumero[arco]}>
+          <PreFormulario />
+          <ComentarioLista arco={ArcoToNumero[arco]} />
+        </ArrayComentarioContextProvider>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import ComentarioLogin from "./componente/login";
 import { CriarNome } from "./componente/criarNome";
 import { FormularioComentario } from "./componente/formulario";
 
-export function ComentarioForm() {
+export function PreFormulario() {
   const { user, nomeUsuario, verificado, atualizarInfo, verificarEmail } = useUserContext();
 
   if (user == null) {

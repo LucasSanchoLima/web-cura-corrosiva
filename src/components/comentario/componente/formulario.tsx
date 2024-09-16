@@ -3,25 +3,28 @@ import { FontMaquina } from "@/fonts/fonts";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { tagComentario } from "../funcoes";
 import { useLeitorContext } from "@/contexts/leitorContext";
-import { enviarComentario } from "@/components/funcoes/funcoes";
+import { enviarComentario, editarComentario } from "@/components/funcoes/funcoes";
 import { useComment } from "./ComentarioItem";
+import { useArrayComentarioContext } from "@/contexts/arrayComentarioContext";
 
 export function FormularioComentario() {
+  const { recarregarComentarios } = useArrayComentarioContext();
   const { user, nomeUsuario } = useUserContext();
   const windowSize = useWindowSize();
   const { idCapAtual } = useLeitorContext();
-  const { comment } = useComment();
+  const { comment, setIsEditing, isEditing } = useComment();
+
+  let idComentario = comment?.id;
+
+  if (idComentario == undefined) {
+    idComentario = "padrao";
+  }
 
   let textoEditado = comment?.texto.replaceAll("[!]", String.fromCharCode(10));
 
-  console.log(comment?.id);
-
   async function enviarForm(formData: FormData) {
     let texto = String(formData.get("texto"));
-    let valorInput = document.getElementById("textAreaComentario") as HTMLInputElement;
-    let id = comment?.id;
-
-    console.log();
+    let valorInput = document.getElementById(idComentario) as HTMLInputElement;
 
     valorInput.value = "";
 
@@ -34,7 +37,13 @@ export function FormularioComentario() {
 
     texto = texto.replaceAll(String.fromCharCode(10), "[!]");
 
-    await enviarComentario(token, texto, idCapAtual, null);
+    if (isEditing) {
+      setIsEditing(false);
+      await editarComentario(token, texto, idComentario);
+    } else {
+      await enviarComentario(token, texto, idCapAtual, null);
+    }
+    recarregarComentarios();
   }
 
   return (
@@ -48,16 +57,16 @@ export function FormularioComentario() {
         </div>
         <div className={`${FontMaquina.className} text-sm md:text-base`}>
           <button
-            onClick={() => {
-              tagComentario("s", "textAreaComentario", windowSize.largura!);
-            }}
-            className="p-1 mr-1 sm:mx-2 bg-zinc-800 rounded-md border border-zinc-500 px-2"
+            // onClick={() => {
+            //   tagComentario("s", idComentario, windowSize.largura!);
+            // }}
+            className="p-1 mr-1 sm:mx-2 bg-zinc-800 rounded-md border border-zinc-500 px-2 opacity-40"
           >
             {windowSize.largura! > 640 ? "Spoiler" : "S"}
           </button>
           <button
             onClick={() => {
-              tagComentario("t", "textAreaComentario", windowSize.largura!);
+              tagComentario("t", idComentario, windowSize.largura!);
             }}
             className="p-1 mr-1 sm:mx-2 bg-zinc-800 rounded-md border border-zinc-500 px-2"
           >
@@ -65,7 +74,7 @@ export function FormularioComentario() {
           </button>
           <button
             onClick={() => {
-              tagComentario("a", "textAreaComentario", windowSize.largura!);
+              tagComentario("a", idComentario, windowSize.largura!);
             }}
             className="p-1 mr-1 sm:mx-2 bg-zinc-800 rounded-md border border-zinc-500 px-2"
           >
@@ -73,7 +82,7 @@ export function FormularioComentario() {
           </button>
           <button
             onClick={() => {
-              tagComentario("r", "textAreaComentario", windowSize.largura!);
+              tagComentario("r", idComentario, windowSize.largura!);
             }}
             className="p-1 mr-1 sm:mx-2 bg-zinc-800 rounded-md border border-zinc-500 px-2"
           >
@@ -88,15 +97,31 @@ export function FormularioComentario() {
         <textarea
           rows={6}
           placeholder="Deixe seu comentario aqui..."
-          id="textAreaComentario"
+          id={idComentario}
           name="texto"
           defaultValue={comment?.texto ? textoEditado : ""}
           className="bg-zinc-800 w-full text-xl rounded-md p-1 mt-3 sm:p-2 sm:py-3"
         ></textarea>
-        <input
-          type="submit"
-          className="mt-3 bg-sky-800 rounded-full py-1 px-5   cursor-pointer"
-        />
+        <div>
+          {comment?.id != undefined ? (
+            <button
+              onClick={() => {
+                setIsEditing(false);
+              }}
+              className="mt-3 bg-red-800 rounded-full py-1 px-5 mx-3"
+            >
+              Cancelar
+            </button>
+          ) : (
+            <></>
+          )}
+
+          <input
+            type="submit"
+            value={"Enviar"}
+            className="mt-3 bg-sky-800 rounded-full py-1 px-5 cursor-pointer"
+          />
+        </div>
       </form>
     </div>
   );
