@@ -32,6 +32,10 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ text: "Não verificado", status: 400 });
   }
 
+  if (usuario!.status == "BANIDO" || usuario!.status == "SHADOWBAN") {
+    return NextResponse.json({ text: "Usuario invalido", status: 400 });
+  }
+
   const comentarioOriginal = await prisma.comentario.findUnique({ where: { id: body.idComentario } });
 
   if (usuario!.id != comentarioOriginal!.usuarioId) {

@@ -22,53 +22,54 @@ model Newsletter {
   @@map("newsletter")
 }
 
-// model Paragrafo {
-//   id    Int          @id @default(autoincrement())
-//   texto String
-//   Parte ParteLivro[]
-// }
+model Paragrafos {
+  id         String   @id @default(uuid())
+  texto      String
+  capituloId String
+  index      Int
+  Capitulo   Capitulo @relation(fields: [capituloId], references: [id])
+}
 
-// model ParteLivro {
-//   id          Int          @id @default(autoincrement())
-//   nome        String
-//   paragrafoId Int
-//   paragrafo   Paragrafo    @relation(fields: [paragrafoId], references: [id])
-//   Livro       Livro[]
-//   Usuario     Usuario[]
-//   Comentario  Comentario[]
+model Capitulo {
+  id               String       @id @default(uuid())
+  titulo           String
+  texto            String?
+  comentarioStatus StatusLivro  @default(PRIVADO)
+  status           StatusLivro  @default(PRIVADO)
+  livroId          String
+  livro            Livro        @relation(fields: [livroId], references: [id])
+  Paragrafos       Paragrafos[]
+}
 
-//   @@map("partelivro")
-// }
-
-// model Livro {
-//   id      Int        @id @default(autoincrement())
-//   nome    String
-//   parteId Int
-//   parte   ParteLivro @relation(fields: [parteId], references: [id])
-
-//   @@map("livro")
-// }
+model Livro {
+  id                String      @id @default(uuid())
+  status            StatusLivro @default(PRIVADO)
+  urlCapa           String?
+  titulo            String
+  descricao         String?
+  criadorPrincialId String
+  criadorPrincial   Usuario     @relation(name: "criadorPrincipal", fields: [criadorPrincialId], references: [id])
+  Capitulo          Capitulo[]
+}
 
 model Usuario {
-  id                String             @id @default(uuid())
-  email             String             @unique
-  emailPagamento    String             @unique //Ver se é neceesário com o Stripe
-  nome              String?            @unique
-  verificado        Boolean            @default(false)
-  tier              Int                @default(0) @db.SmallInt
-  ultimaParteId     Int?
-  // ultimaParte    ParteLivro?  @relation(fields: [ultimaParteId], references: [id])
-  config            Json
-  criadoEm          DateTime           @default(now())
-  atuallizadoEm     DateTime           @updatedAt
-  excluido          Boolean            @default(false)
-  Pagamentos        Pagamentos[]
-  Comentario        Comentario[]
-  // historicoLivro HistoricoLivro[]
-  // Livro          Livro[]
-  PontosComentario  PontosComentario[]
-  CrimesCometidos   Denuncia[]         @relation(name: "criminoso")
-  CrimesDenunciados Denuncia[]         @relation(name: "acusador")
+  id                   String             @id @default(uuid())
+  email                String             @unique
+  emailPagamento       String             @unique //Ver se é neceesário com o Stripe
+  nome                 String?            @unique
+  verificado           Boolean            @default(false)
+  status               StatusUsuario      @default(PADRAO)
+  ultimaParteId        Int?
+  config               Json
+  criadoEm             DateTime           @default(now())
+  atuallizadoEm        DateTime           @updatedAt
+  excluido             Boolean            @default(false)
+  Pagamentos           Pagamentos[]
+  Comentario           Comentario[]
+  PontosComentario     PontosComentario[]
+  CrimesCometidos      Denuncia[]         @relation(name: "criminoso")
+  CrimesDenunciados    Denuncia[]         @relation(name: "acusador")
+  LivroCriadorPrincial Livro[]            @relation(name: "criadorPrincipal")
 
   @@map("usuario")
 }
@@ -155,6 +156,14 @@ enum TipoBanimento {
   @@map("tipobanimento")
 }
 
+enum StatusUsuario {
+  PADRAO
+  BANIDO
+  SHADOWBAN
+
+  @@map("statususuario")
+}
+
 enum StatusComentario {
   EDITADO
   EXCLUIDO
@@ -163,108 +172,8 @@ enum StatusComentario {
   @@map("statuscomentado")
 }
 
-// enum Dispositivos {
-//   DESKTOP
-//   CELULAR
-//   TABLET
-//   OUTROS
-
-//   @@map("dispositivos")
-// }
-
-// enum StatusLeitor {
-//   LENDO
-//   QUERENDO
-//   FINALIZADO
-
-//   @@map("statusleitor")
-// }
-
-// model LITradutorSaida {
-//   id         Int          @id @default(autoincrement())
-//   nome       String
-//   lITradutor LITradutor[]
-// }
-
-// model LITradutor {
-//   entrada String          @unique
-//   saidaId Int
-//   saida   LITradutorSaida @relation(fields: [saidaId], references: [id])
-// }
-
-// model LIMensagem {
-//   id       Int      @id @default(autoincrement())
-//   mensagem String
-//   data     DateTime @default(now())
-// }
-
-// model HistoricoLivro {
-//   id            Int        @id @default(autoincrement())
-//   terminado     Boolean    @default(false)
-//   ultimoCapLido Int
-//   capitulo      LivroParte @relation(fields: [ultimoCapLido], references: [id])
-//   livroId       Int
-//   livro         Livro      @relation(fields: [livroId], references: [id])
-//   usuarioId     String
-//   usuario       Usuario    @relation(fields: [usuarioId], references: [id])
-//   atuallizadoEm DateTime   @updatedAt
-
-//   @@map("historicolivro")
-// }
-
-// model Acesso {
-//   id          Int          @id @default(autoincrement())
-//   usuarioId   String
-//   usuario     Usuario      @relation(fields: [usuarioId], references: [id])
-//   ip          String       @db.Inet
-//   dispositivo Dispositivos
-//   data        DateTime     @default(now())
-
-//   @@map("acesso")
-// }
-
-// model Mensagem {
-//   id        Int      @id @default(autoincrement())
-//   usuarioId String
-//   usuario   Usuario  @relation(fields: [usuarioId], references: [id])
-//   direcao   Boolean
-//   conteudo  String
-//   data      DateTime @default(now())
-
-//   @@map("mensagem")
-// }
-// model LivroParagrafo {
-//   id         Int        @id @default(autoincrement())
-//   texto      String
-//   parteId    Int
-//   livroParte LivroParte @relation(fields: [parteId], references: [id])
-//   config     Json
-
-//   @@map("livroparagrafo")
-// }
-
-// model LivroParte {
-//   id             Int              @id @default(autoincrement())
-//   nome           String
-//   livroId        Int
-//   livro          Livro            @relation(fields: [livroId], references: [id])
-//   config         Json
-//   LivroParagrafo LivroParagrafo[]
-//   Historico      HistoricoLivro[]
-
-//   @@map("livroparte")
-// }
-
-// model Livro {
-//   id             Int              @id @default(autoincrement())
-//   nome           String
-//   usuarioId      String
-//   // usuario        Usuario          @relation(fields: [usuarioId], references: [id])
-//   publico        Boolean          @default(false)
-//   dataCriado     DateTime         @default(now())
-//   dataAtualizado DateTime         @updatedAt
-//   LivroParte     LivroParte[]
-//   Historico      HistoricoLivro[]
-
-//   @@map("livro")
-// }
+enum StatusLivro {
+  PUBLICO
+  PRIVADO
+  INVISIVEL
+}

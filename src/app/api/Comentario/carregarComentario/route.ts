@@ -21,7 +21,7 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ text: "Arco não informado" }, { status: 400 });
   }
   let inicio = 0;
-  let quantidade = 10;
+  let quantidade = 50;
   if (body.inicio != null) {
     inicio = Number(body.inicio);
   }
@@ -30,8 +30,8 @@ export async function POST(req: Request, res: Response) {
   }
 
   //Sanitização do Usuario
-  if (quantidade > 10) {
-    quantidade = 10;
+  if (quantidade > 50) {
+    quantidade = 50;
   }
 
   // Pegar informações do bando de dados

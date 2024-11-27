@@ -1,9 +1,12 @@
-import { requesteMudarNome } from "@/components/funcoes/funcoes";
+"use client";
 import { useUserContext } from "@/contexts/userContext";
 import { FontMaquina } from "@/fonts/fonts";
+import { requesteMudarNome } from "@/components/funcoes/funcoes";
+import { usePopUpContext } from "@/contexts/popUpContext";
 import { useState } from "react";
 
-export function CriarNome() {
+export default function MudarNome() {
+  const { textoBotao, mudaEstadoPopUp } = usePopUpContext();
   const { user, atualizarInfo } = useUserContext();
   const [erro, setErro] = useState("");
 
@@ -15,27 +18,28 @@ export function CriarNome() {
       return;
     }
 
+    mudaEstadoPopUp(0);
     atualizarInfo();
   }
 
   return (
-    <div className="w-100 rounded-md bg-zinc-900 flex flex-col items-center justify-center p-3 my-10 text-center text-base sm:text-lg ">
-      <p className="p-3 text-xl sm:text-2xl mt-2 ">Antes de comentar você precisa de um nome!</p>
+    <div className=" relative flex justify-center  items-center flex-col">
       <form
         action={criarNome}
-        className={`flex flex-col w-full sm:w-1/2 md:w-1/3 my-5 ${FontMaquina.className}`}
+        className=" my-5 mx-20 flex flex-col"
       >
-        <p className="mb-1 ml-2 text-left">Nome:</p>
+        <p className="mb-1 ml-2 text-sm sm:text-base">Nome</p>
         <input
           type="text"
           name="nome"
-          className="rounded-full bg-white p-1 pl-3 text-zinc-900"
-        />
+          className="rounded-full sm:w-96 h-7 sm:h-10 bg-white p-3 text-zinc-900 flex flex-row justify-center"
+        ></input>
         {erro != "" ? <p className="p-2 mt-3 rounded-md text-base  text-red-800 border-red-950 border-2">{erro}</p> : <></>}
         <input
           type="submit"
-          className="mt-3 bg-sky-800 rounded-full py-1 px-5 mx-auto  cursor-pointer"
-        />
+          className={`mx-auto my-5 px-5 sm:py-1 cursor-pointer rounded-full text-xl sm:text-2xl ${FontMaquina.className} bg-sky-800`}
+          value={textoBotao}
+        ></input>
       </form>
     </div>
   );

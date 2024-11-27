@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import ComentarioItem from "./ComentarioItem";
 import { useArrayComentarioContext } from "@/contexts/arrayComentarioContext";
 

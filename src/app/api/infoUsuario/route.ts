@@ -8,8 +8,11 @@ export async function POST(req: Request, res: Response) {
   const requisicao = req;
 
   if (requisicao.headers.get("authorization") == null) {
-    console.error("authorization is null");
-    return;
+    return NextResponse.json({ text: "Sem autorização", status: 400 });
+  }
+
+  if (requisicao.headers.get("authorization")!.split(" ").length <= 1) {
+    return NextResponse.json({ text: "Sem autorização", status: 400 });
   }
 
   const token = requisicao.headers.get("authorization")!.split(" ")[1];

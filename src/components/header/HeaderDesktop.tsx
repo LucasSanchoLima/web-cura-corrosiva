@@ -108,7 +108,7 @@ export default function HeaderDesktop() {
               onClick={() => {
                 setMenuConta(false);
               }}
-              href={"/conta"}
+              href={"/autor/" + nomeUsuario}
               className="text-center mx-8"
             >
               Minha Conta

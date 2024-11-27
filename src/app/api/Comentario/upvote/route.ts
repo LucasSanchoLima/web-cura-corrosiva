@@ -29,6 +29,10 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ text: "Não verificado" });
   }
 
+  if (usuario!.status == "BANIDO" || usuario!.status == "SHADOWBAN") {
+    return NextResponse.json({ text: "Usuario invalido", status: 400 });
+  }
+
   let valor = 0;
 
   if (body.positivo) {

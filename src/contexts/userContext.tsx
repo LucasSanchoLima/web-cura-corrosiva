@@ -1,6 +1,7 @@
 "use client";
 
 import { auth } from "@/utils/firebase";
+import { promises } from "dns";
 import { browserLocalPersistence, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signInWithPopup, signOut, User } from "firebase/auth";
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
@@ -27,13 +28,18 @@ const userContext = createContext<UserContextProps>({} as UserContextProps);
 export function UserContextProvider({ children }: UserContextProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [carregarNome, setCarregarNome] = useState(true);
   const [nomeUsuario, setNomeUsuario] = useState<string | null>(null);
   const [verificado, setVerificado] = useState(false);
   setPersistence(auth, browserLocalPersistence);
 
-  onAuthStateChanged(auth, (changedUser: User | null) => {
+  onAuthStateChanged(auth, async (changedUser: User | null) => {
     if (changedUser) {
       setUser(changedUser);
+      if (nomeUsuario == null && carregarNome && user != null) {
+        setCarregarNome(false);
+        await atualizarInfo();
+      }
     } else {
       setUser(null);
     }
@@ -42,11 +48,15 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   });
 
   async function atualizarInfo() {
+    if (user == null) {
+      return;
+    }
+
     const token = await user?.getIdToken();
     const request = { headers: { Authorization: "Bearer " + token }, method: "POST" };
     const result = await fetch("/api/infoUsuario", request);
-
     const info = await result.json();
+
     setNomeUsuario(info.nome);
     setVerificado(info.verificado);
   }
