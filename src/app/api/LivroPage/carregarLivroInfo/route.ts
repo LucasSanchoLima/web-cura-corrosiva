@@ -11,10 +11,15 @@ export interface ComentarioProps {
   };
 }
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const requisicao = req;
 
   const body = await requisicao.json();
+
+  console.log(body.autor, body.Titulo);
+
+  body.autor = body.autor.replaceAll(" ", "_");
+  body.Titulo = body.Titulo.replaceAll(" ", "_");
 
   const autor = await prisma.usuario.findFirst({ where: { nome: body.autor } });
 
@@ -28,7 +33,9 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ text: "Livro não encontrado", status: 400 });
   }
 
+  console.log(resultado.id);
   const capitulos = await prisma.capitulo.findMany({ where: { livroId: resultado.id } });
+  console.log(capitulos);
 
   const titulos: String[] = [];
 
@@ -36,5 +43,6 @@ export async function POST(req: Request, res: Response) {
     titulos.push(cap.titulo);
   });
 
+  console.log(titulos);
   return NextResponse.json({ text: "OK", capitulos: titulos, descricao: resultado.descricao, status: 200 });
 }

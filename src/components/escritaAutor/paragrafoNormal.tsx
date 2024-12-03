@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParagrafoContext } from "./preParagrafo";
 
 export function ParagrafoNormal() {
@@ -17,8 +17,8 @@ export function ParagrafoNormal() {
       }}
       className="w-full h-full text-left max-w-xl mb-3 bg-zinc-800 overflow-hidden rounded-md p-1 mt-3 sm:p-2 sm:py-3"
     >
-      {textoParagrafo.split(String.fromCharCode(10)).map((texto) => {
-        return <p>{texto}</p>;
+      {textoParagrafo.split(String.fromCharCode(10)).map((texto, index) => {
+        return <p key={index}>{texto}</p>;
       })}
     </div>
   );

@@ -3,46 +3,72 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { ParagrafoItem } from "./preParagrafo";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { enviarParagrafosAutor, carregarCapituloAutor } from "@/components/funcoes/funcoes";
+import { useUserContext } from "@/contexts/userContext";
 
 interface ControladorParagrafoProps {
-  paragrafos: string[];
-  setParagrafos: React.Dispatch<React.SetStateAction<string[]>>;
+  paragrafos: ParagrafoProps[];
+  setParagrafos: React.Dispatch<React.SetStateAction<ParagrafoProps[]>>;
   tamanhoMinimoLetraIPX: number;
   tamanhoMinimoLetraPX: number;
   erroMargenTela: number;
-  AtualizarTextArea: (idTextArea: string) => number;
-  NumeroID: (idTextArea: string) => number;
   AtualizarParagrafo: () => void;
+  setEnviarDisponivel: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface ParagrafoProps {
+  texto: string;
+  id: string;
+  index: number;
 }
 
 const ControladorParagrafoContext = createContext({} as ControladorParagrafoProps);
 
-function calculoDeLinhas(paragrafo: string, largura: number, tamanhoMinimoLetraIPX: number, tamanhoMinimoLetraPX: number, erroMargenTela: number) {
-  const letrapequena = (paragrafo.match(/[iljI1!(){}"'-,.; ]/g) || []).length;
+export function ControladorParagrafo({ nomeCapitulo, nomeLivro, setCarregando, carregando }: { nomeCapitulo: string; nomeLivro: string; setCarregando: React.Dispatch<React.SetStateAction<boolean>>; carregando: boolean }) {
+  const { user } = useUserContext();
+  // const { nomeCapitulo, nomeLivro, setCarregando, carregando } = useControladorCapituloContext();
 
-  return Math.floor(((letrapequena * tamanhoMinimoLetraIPX + (paragrafo.length - letrapequena + erroMargenTela) * tamanhoMinimoLetraPX) / largura) * 1.15);
-}
-
-export function ControladorParagrafo() {
-  const [paragrafos, setParagrafos] = useState<string[]>([]);
-  const [paragrafosDoServer, setParagrafosDoServer] = useState<string[]>([]);
+  const [paragrafos, setParagrafos] = useState<ParagrafoProps[]>([]);
+  const [enviarDiponivel, setEnviarDisponivel] = useState<boolean>(false);
+  const [paragrafosDoServer, setParagrafosDoServer] = useState<ParagrafoProps[]>([]);
 
   const [tamanhoMinimoLetraPX, setTamanhoMinimoLetraPX] = useState(10);
   const [tamanhoMinimoLetraIPX, setTamanhoMinimoLetraIPX] = useState(10);
   const [erroMargenTela, setErroMargen] = useState(2);
   const windowSize = useWindowSize();
 
-  const memoizedProps = useMemo(() => ({ paragrafos, setParagrafos, tamanhoMinimoLetraIPX, tamanhoMinimoLetraPX, erroMargenTela, AtualizarTextArea, NumeroID, AtualizarParagrafo }), [paragrafos, setParagrafos]);
+  const memoizedProps = useMemo(() => ({ paragrafos, setParagrafos, tamanhoMinimoLetraIPX, tamanhoMinimoLetraPX, erroMargenTela, AtualizarParagrafo, setEnviarDisponivel }), [paragrafos, setParagrafos]);
 
-  function NumeroID(idTextArea: string) {
-    return parseInt(idTextArea.split("TextArea")[1]);
+  async function carregarParagrafosAutor() {
+    let resultado = await carregarCapituloAutor(await user!.getIdToken(), nomeCapitulo, nomeLivro);
+
+    if (resultado.status == 200) {
+      setParagrafos([...resultado.paragrafos]);
+      setParagrafosDoServer([...resultado.paragrafos]);
+    }
   }
 
-  function enviarAPI() {}
+  async function enviarParagrafos() {
+    if (enviarDiponivel == false) {
+      return;
+    }
+    setEnviarDisponivel(false);
+
+    // console.log(paragrafos);
+
+    await enviarParagrafosAutor(await user!.getIdToken(), paragrafos, nomeCapitulo, nomeLivro);
+    await carregarParagrafosAutor();
+  }
 
   function Resize() {
-    setTamanhoMinimoLetraPX(document.getElementById("tamanhoMinimoTextAreaLetra")!.clientWidth);
-    setTamanhoMinimoLetraIPX(document.getElementById("tamanhoMinimoTextAreaLetraI")!.clientWidth);
+    var pixel = document.getElementById("tamanhoMinimoTextAreaLetra")?.clientWidth;
+    if (typeof pixel === "number") {
+      setTamanhoMinimoLetraPX(pixel);
+    }
+    pixel = document.getElementById("tamanhoMinimoTextAreaLetraI")?.clientWidth;
+    if (typeof pixel === "number") {
+      setTamanhoMinimoLetraIPX(pixel);
+    }
 
     if (windowSize.largura! > 640) {
       setErroMargen(2);
@@ -55,8 +81,8 @@ export function ControladorParagrafo() {
     var mudanca = false;
     var Parte1;
     var Parte2;
-    paragrafos.map((texto, index) => {
-      if (texto == "") {
+    paragrafos.map((par, index) => {
+      if (par.texto == "") {
         if (index == 0) {
           Parte1 = paragrafos.splice(1);
           Parte2 = [];
@@ -79,87 +105,38 @@ export function ControladorParagrafo() {
     }
   }
 
-  function AtualizarParagrafo() {
-    retirarTextoVazio();
-  }
-
-  function AtualizarTextArea(idTextArea: string) {
-    let textArea = document.getElementById(idTextArea) as HTMLInputElement;
-
-    let index = NumeroID(idTextArea);
-
-    if (textArea.value.search(String.fromCharCode(10) + String.fromCharCode(10)) != -1) {
-      const textos = textArea.value.split(String.fromCharCode(10) + String.fromCharCode(10));
-      const ultimo = textos[textos.length - 1];
-      textArea.value = ultimo;
-      textos.pop();
-      if (Number.isNaN(index)) {
-        let Copia: string[] = [];
-        textos.map((texto) => {
-          if (texto != "") {
-            Copia.push(texto);
-          }
-        });
-        setParagrafos([...paragrafos, ...Copia]);
-      } else {
-        // Quando eu estava editando textos no site, acabava dando enter
-        // para enviar a edição, porém ele compreendia que eu estava tentando
-        // criar 2 paragrafos diferentes, então optei por concatené-los
-        if (textos.length == 2) {
-          textos[0] = textos[0] + textos[1];
-          textos.pop();
-        }
-
-        // Como o splice tem um modo diferente de ser usado quando se utiliza numeros negativos, criamos o caso do index ser 0 e dele ser igual ao tamanho do paragrafos
-        let Copia: string[] = [];
-        if (index == 0) {
-          textos.map((texto) => {
-            if (texto != "") {
-              Copia.push(texto);
-            }
-          });
-          Copia.push(...paragrafos.splice(1));
-        } else {
-          if (index == paragrafos.length - 1) {
-            Copia = [...paragrafos];
-            Copia.pop();
-            textos.map((texto) => {
-              if (texto != "") {
-                Copia.push(texto);
-              }
-            });
-          } else {
-            Copia = [...paragrafos.splice(0, index)];
-            textos.map((texto) => {
-              if (texto != "") {
-                Copia.push(texto);
-              }
-            });
-            Copia.push(...paragrafos.splice(index - 1, paragrafos.length));
-          }
-        }
-        setParagrafos([...Copia]);
-
-        return -1;
+  function PrecisaReorganizar() {
+    for (var index = 0; index < paragrafos.length; index++) {
+      if (paragrafos[index].index != index) {
+        return true;
       }
     }
-
-    let calculo = textArea.value.split(String.fromCharCode(10)).length;
-
-    textArea.value.split("\n").forEach((paragrafo) => {
-      calculo += calculoDeLinhas(paragrafo, textArea.clientWidth, tamanhoMinimoLetraIPX, tamanhoMinimoLetraPX, erroMargenTela);
-    });
-
-    return calculo;
+    return false;
   }
+
+  function OrganizarParagrafo() {
+    if (PrecisaReorganizar()) {
+      let Copia: ParagrafoProps[] = [];
+      for (var index = 0; index < paragrafos.length; index++) {
+        Copia.push({ texto: paragrafos[index].texto, id: paragrafos[index].id, index: index });
+      }
+      setParagrafos([...Copia]);
+    }
+  }
+
+  function AtualizarParagrafo() {
+    retirarTextoVazio();
+    OrganizarParagrafo();
+  }
+
+  useEffect(() => {
+    carregarParagrafosAutor();
+    Resize();
+  }, []);
 
   useEffect(() => {
     AtualizarParagrafo();
   }, [paragrafos]);
-
-  useEffect(() => {
-    Resize();
-  }, []);
 
   window.addEventListener("resize", Resize);
 
@@ -184,6 +161,7 @@ export function ControladorParagrafo() {
               <ParagrafoItem
                 idTextArea={"TextArea" + index}
                 eHinput={false}
+                key={index}
               ></ParagrafoItem>
             );
           })}
@@ -193,16 +171,25 @@ export function ControladorParagrafo() {
           idTextArea={"TextArea"}
           eHinput={true}
         ></ParagrafoItem>
-
-        {/* <textarea
-          className="w-full h-full max-w-xl mb-10 bg-zinc-800 overflow-hidden rounded-md p-1 mt-3 sm:p-2 sm:py-3"
-          onInput={() => {
-            setLinhasTextArea(AtualizarTextArea("TextArea"));
-          }}
-          rows={linhasTextArea}
-          id="TextArea"
-        ></textarea> */}
       </div>
+      {enviarDiponivel ? (
+        <>
+          <div className="my-4 flex flex-row justify-center fixed bottom-0 w-full py-2">
+            <button
+              className="bg-sky-900 p-2 rounded-md text-xl"
+              onClick={() => {
+                setCarregando(true);
+                enviarParagrafos();
+              }}
+            >
+              Enviar Alterações
+            </button>
+          </div>
+          <div className="h-11 p-5 my-3"></div>
+        </>
+      ) : (
+        <></>
+      )}
     </ControladorParagrafoContext.Provider>
   );
 }

@@ -1,15 +1,29 @@
 "use server";
 import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
+import { StringURL, ValorNull } from "../../uteis/verificacoes";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const requisicao = req;
+  let resultadoVerificacao;
+  let valoresVerificacao;
+  let nomeVerificacao;
 
   const body = await requisicao.json();
 
-  if (body.autor == undefined || body.autor == null || body.livro == undefined || body.livro == null || body.capitulo == undefined || body.capitulo == null) {
-    return NextResponse.json({ text: "", status: 400 });
-  }
+  valoresVerificacao = [body.autor, body.livro, body.capitulo];
+  nomeVerificacao = ["Valor de Autor dado pelo Usuário", "Valor de Livro dado pelo Usuário", "Valor de Capítulo dado pelo Usuário"];
+
+  valoresVerificacao.map(async (valor, index) => {
+    resultadoVerificacao = await ValorNull(valor, nomeVerificacao[index]);
+    if (resultadoVerificacao !== true) {
+      return resultadoVerificacao;
+    }
+  });
+
+  body.autor = await StringURL(body.autor);
+  body.livro = await StringURL(body.livro);
+  body.capitulo = await StringURL(body.capitulo);
 
   const autor = await prisma.usuario.findFirst({ where: { nome: body.autor } });
 
@@ -23,13 +37,13 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({ text: "Livro não encontrado", status: 400 });
   }
 
-  const capitulo = await prisma.capitulo.findFirst({ where: { livroId: livro.id } });
+  const capitulo = await prisma.capitulo.findFirst({ where: { livroId: livro.id, titulo: body.capitulo } });
 
   if (capitulo == null || capitulo.status != "PUBLICO") {
     return NextResponse.json({ text: "Capítulo não encontrado", status: 400 });
   }
 
-  const paragrafos = await prisma.paragrafos.findMany({ where: { capituloId: capitulo.id } });
+  const paragrafos = await prisma.paragrafos.findMany({ where: { capituloId: capitulo.id }, orderBy: { index: "asc" } });
 
   if (paragrafos.length == 0) {
     return NextResponse.json({ text: "Nada foi escrito ainda", status: 400 });
@@ -41,5 +55,5 @@ export async function POST(req: Request, res: Response) {
     textos.push(par.texto);
   });
 
-  return NextResponse.json({ text: "OK", textos: textos });
+  return NextResponse.json({ paragrafos: textos, status: 200 });
 }

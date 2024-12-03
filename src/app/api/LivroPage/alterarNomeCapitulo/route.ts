@@ -4,7 +4,7 @@ import { authAdmin } from "@/utils/firebaseAdmin";
 import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const requisicao = req;
 
   if (requisicao.headers.get("authorization") == null) {

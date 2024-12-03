@@ -1,5 +1,7 @@
 "use client";
 
+import { ParagrafoProps } from "@/components/escritaAutor/ControladorParagrafo";
+
 // const serverURL = "https://curacorrosiva.com";
 const serverURL = "http://localhost:3000";
 
@@ -10,6 +12,20 @@ const serverURL = "http://localhost:3000";
 export async function carregarCapituloLeitor(nomeCapitulo: String, nomeLivro: String, nomeAutor: String) {
   const request = { body: JSON.stringify({ capitulo: nomeCapitulo, autor: nomeAutor, livro: nomeLivro }), method: "POST" };
   const result = await fetch(serverURL + "/api/CapituloPage/carregarCapituloLeitor", request);
+
+  return await result.json();
+}
+
+export async function carregarCapituloAutor(token: string, nomeCapitulo: String, nomeLivro: String) {
+  const request = { headers: { Authorization: "Bearer " + token }, body: JSON.stringify({ capitulo: nomeCapitulo, livro: nomeLivro }), method: "POST" };
+  const result = await fetch(serverURL + "/api/CapituloPage/carregarCapituloAutor", request);
+
+  return await result.json();
+}
+
+export async function enviarParagrafosAutor(token: string, paragrafos: ParagrafoProps[], nomeCapitulo: String, nomeLivro: String) {
+  const request = { headers: { Authorization: "Bearer " + token }, body: JSON.stringify({ paragrafos, capitulo: nomeCapitulo, livro: nomeLivro }), method: "POST" };
+  const result = await fetch(serverURL + "/api/CapituloPage/enviarParagrafosAutor", request);
 
   return await result.json();
 }

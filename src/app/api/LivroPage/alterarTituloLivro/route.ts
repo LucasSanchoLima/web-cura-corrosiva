@@ -3,8 +3,9 @@ import { jaCadastrado } from "@/server/loginCadastro";
 import { authAdmin } from "@/utils/firebaseAdmin";
 import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
+import { StringURL } from "../../uteis/verificacoes";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const requisicao = req;
 
   if (requisicao.headers.get("authorization") == null) {
@@ -44,6 +45,8 @@ export async function POST(req: Request, res: Response) {
   if (body.nomeLivro[0] == " ") {
     return NextResponse.json({ text: "Não comece com um espaço", status: 400 });
   }
+
+  body.nomeLivro = StringURL(body.nomeLivro);
 
   const livro = await prisma.livro.findMany({ where: { criadorPrincialId: usuario!.id, titulo: body.nomeLivro } });
 

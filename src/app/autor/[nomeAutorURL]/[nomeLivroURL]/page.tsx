@@ -99,9 +99,12 @@ export default function Autor({ params }: { params: { nomeLivroURL: string; nome
           <div className="flex flex-col">
             <p className="bg-zinc-800 text-center w-full text-2xl py-1">Sumário</p>
             <div className=" px-12 pt-5 pb-2">
-              {capitulos.map((cap) => {
+              {capitulos.map((cap, index) => {
                 return (
-                  <div className="relative">
+                  <div
+                    className="relative"
+                    key={index}
+                  >
                     <Link href={"/autor/" + nomeAutor.replaceAll(" ", "_") + "/" + nomeLivro.replaceAll(" ", "_") + "/" + cap.replaceAll(" ", "_")}>
                       <p className="bg-sky-950 py-2 text-center text-xl mb-5">{cap.replaceAll("_", " ")}</p>
                     </Link>

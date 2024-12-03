@@ -4,11 +4,13 @@ import { authAdmin } from "@/utils/firebaseAdmin";
 import { jaCadastrado } from "@/server/loginCadastro";
 import prisma from "@/utils/prisma";
 import { UsuarioBanido } from "@/app/api/uteis/verificacoes";
+import { isBooleanObject } from "util/types";
 
-const nomesIndisponiveis = ["Davi", "Alice", "Natham", "Noah", "Daniel", "Guilherme", "Catarina", "Miguel", "Cura Corrosiva", "cura corrosiva", "curacorrosiva", "CuraCorrosiva", "Tagarela", "Muralha", "Sangrento"];
+const nomesIndisponiveis = ["Davi", "Alice", "Natham", "Noah", "Daniel", "Guilherme", "Catarina", "Miguel", "Cura Corrosiva", "cura corrosiva", "curacorrosiva", "CuraCorrosiva", "Tagarela", "Muralha", "Sangrento", "Visitante"];
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const request = req;
+  let verificacao;
 
   if (request.headers.get("authorization") == null) {
     console.error("authorization is null");
@@ -18,13 +20,13 @@ export async function POST(req: Request, res: Response) {
   const token = request.headers.get("authorization")!.split(" ")[1];
   const verifiToken = await authAdmin.verifyIdToken(token!);
 
-  jaCadastrado(verifiToken);
+  // jaCadastrado(verifiToken);
 
   const usuario = await prisma.usuario.findUnique({ where: { email: verifiToken.email } });
 
-  const verificacao = UsuarioBanido(usuario);
+  verificacao = await UsuarioBanido(usuario);
 
-  if (verificacao !== true) {
+  if (!isBooleanObject(verificacao)) {
     return verificacao;
   }
 
@@ -52,10 +54,6 @@ export async function POST(req: Request, res: Response) {
   const nomeBackup = nome;
 
   nome = nome.replaceAll("-", "");
-  nome = nome.replaceAll("_", "");
-
-  // console.log(nome);
-  // console.log(nomeBackup);
 
   if (nome.search(/\W/) != -1) {
     return NextResponse.json({ text: "Não utilize caracteres especiais", status: 400 });

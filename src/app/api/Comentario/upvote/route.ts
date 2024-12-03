@@ -5,7 +5,7 @@ import { jaCadastrado } from "@/server/loginCadastro";
 import prisma from "@/utils/prisma";
 import { atualizarPonto } from "@/utils/servidor";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const request = req;
 
   if (request.headers.get("authorization") == null) {

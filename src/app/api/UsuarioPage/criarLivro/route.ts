@@ -4,25 +4,25 @@ import { authAdmin } from "@/utils/firebaseAdmin";
 import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
 import { UsuarioBanido } from "../../uteis/verificacoes";
+import { isBooleanObject } from "util/types";
 
 export async function POST(req: Request, res: Response) {
   const requisicao = req;
 
   if (requisicao.headers.get("authorization") == null) {
     console.error("authorization is null");
+    // return NextResponse.json({ text: "", status: 400 });
     return;
   }
 
   const token = requisicao.headers.get("authorization")!.split(" ")[1];
   const verifiToken = await authAdmin.verifyIdToken(token!);
 
-  jaCadastrado(verifiToken);
-
   const usuario = await prisma.usuario.findUnique({ where: { email: verifiToken.email } });
 
-  const verificacao = UsuarioBanido(usuario);
+  const verificacao = await UsuarioBanido(usuario);
 
-  if (verificacao !== true) {
+  if (!isBooleanObject(verificacao)) {
     return verificacao;
   }
 

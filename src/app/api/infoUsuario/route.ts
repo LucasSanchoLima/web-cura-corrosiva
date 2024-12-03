@@ -4,7 +4,7 @@ import { authAdmin } from "@/utils/firebaseAdmin";
 import { jaCadastrado } from "@/server/loginCadastro";
 import prisma from "@/utils/prisma";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const requisicao = req;
 
   if (requisicao.headers.get("authorization") == null) {
@@ -21,6 +21,10 @@ export async function POST(req: Request, res: Response) {
   jaCadastrado(verifiToken);
 
   const usuario = await prisma.usuario.findUnique({ where: { email: verifiToken.email } });
+
+  if (usuario === null) {
+    return NextResponse.json({ nome: "Visitante", verificado: false });
+  }
 
   return NextResponse.json({ nome: usuario?.nome, verificado: usuario?.verificado });
 }

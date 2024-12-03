@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { authAdmin } from "@/utils/firebaseAdmin";
 import { jaCadastrado } from "@/server/loginCadastro";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const resultado = req;
 
   if (resultado.headers.get("authorization") == null) {
